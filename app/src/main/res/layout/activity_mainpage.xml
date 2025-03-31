@@ -19,10 +19,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            >
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
 
         <LinearLayout
             android:id="@+id/loginForm"
@@ -46,12 +46,14 @@
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/loginTextId"
                 android:hint="아이디" />
 
             <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="비밀번호"
+                android:id="@+id/loginTextPassword"
                 android:inputType="textPassword"
                 android:imeOptions="actionDone" />
 
@@ -59,6 +61,7 @@
                 android:layout_gravity="right"
                 android:layout_height="wrap_content"
                 android:layout_width="match_parent"
+                android:id="@+id/buttonLogin"
                 android:text="Login"
                 android:textColor="#B8E0FD"
                 android:backgroundTint="#FCF5FD"
@@ -75,29 +78,29 @@
                 android:layout_marginTop="30dp"
                 android:textColor="#808080" />
         </LinearLayout>
-            <TextView
-                android:id="@+id/welcome"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginRight="30dp"
-                android:layout_marginBottom="160dp"
-                android:text="환영합니다!"
-                android:textSize="30dp"
-                android:layout_gravity="bottom|right"
-                android:textStyle="bold"
-                />
+        <TextView
+            android:id="@+id/welcome"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginBottom="160dp"
+            android:text="환영합니다!"
+            android:textSize="30dp"
+            android:layout_gravity="bottom|right"
+            android:textStyle="bold"
+            />
 
-            <Button
-                android:id="@+id/welcombt"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="▶"
-                android:textSize="25dp"
-                android:textColor="#B8E0FD"
-                android:backgroundTint="#FCF5FD"
-                android:layout_marginRight="20dp"
-                android:layout_gravity="bottom|right"
-                android:layout_marginBottom="90dp"/>
-        </FrameLayout>
+        <Button
+            android:id="@+id/welcombt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="▶"
+            android:textSize="25dp"
+            android:textColor="#B8E0FD"
+            android:backgroundTint="#FCF5FD"
+            android:layout_marginRight="20dp"
+            android:layout_gravity="bottom|right"
+            android:layout_marginBottom="90dp"/>
+    </FrameLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

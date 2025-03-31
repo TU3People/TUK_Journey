@@ -1,10 +1,12 @@
-package com.example.journey
+package com.example.old
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.utility.LoginRequest
+import com.example.utility.RetrofitClient
 import com.example.journey.databinding.ActivityLoginBinding
 import kotlinx.coroutines.launch
 
@@ -23,7 +25,7 @@ class Login : AppCompatActivity(){
                 val request = LoginRequest(usr_id_txt, usr_pw_txt)
 
                 val response = RetrofitClient.instance.login(request)
-                println(response)
+                // println(response)
                 if (response.isSuccessful) {
                     val result = response.body()
                     Toast.makeText(this@Login, result?.message, Toast.LENGTH_SHORT).show()

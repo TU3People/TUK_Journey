@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:clipChildren="false"
+    android:clipToPadding="false">
+
+    <ImageView
+        android:id="@+id/mainImageView"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:src="@drawable/real"
+        android:scaleType="fitXY"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:backgroundTint="#C2BEC3"
+        android:orientation="vertical"
+        android:clipChildren="false"
+        android:clipToPadding="false">
+
+        <LinearLayout
+            android:id="@+id/loginForm"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingLeft="32dp"
+            android:paddingRight="32dp"
+            android:clipChildren="false"
+            android:clipToPadding="false">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textSize="30dp"
+                android:layout_margin="10dp"
+                android:textStyle="bold"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/registerTextEmail"
+                android:hint="이메일"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/registerTextId"
+                android:hint="아이디"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/registerTextPassword"
+                android:inputType="textPassword"
+                android:hint="비밀번호"
+                android:imeOptions="actionDone"/>
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/registerTextPasswordChk"
+                android:inputType="textPassword"
+                android:imeOptions="actionDone"
+                android:hint="비밀번호 확인"/>
+
+            <Button
+                android:layout_gravity="right"
+                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:id="@+id/buttonSignup"
+                android:text="Sign Up"
+                android:backgroundTint="#B8E0FD"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:textSize="20dp"/>
+
+            <TextView
+                android:id="@+id/idtext"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="아이디가 있으신가요?  Login"
+                android:textSize="15dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:textColor="#808080"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
