@@ -1,15 +1,14 @@
 package com.example.journey
 
 import android.content.Context
-
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.example.journey.databinding.ActivityMainpageBinding
 import com.example.utility.LoginRequest
 import com.example.utility.RetrofitClient
@@ -61,17 +60,20 @@ class LoginPageActivity : AppCompatActivity() {
             lifecycleScope.launch {
                 val request = LoginRequest(usr_id_txt, usr_pw_txt)
                 val response = RetrofitClient.instance.login(request)
+                val pref = MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
 
                 if (response.isSuccessful) {
-                    val result = response.body()
-
-                    Toast.makeText(this@LoginPageActivity, result?.message, Toast.LENGTH_SHORT).show()
-
+                    val loginResult = response.body()
+                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
+                    if (loginResult?.result == "success" && loginResult.token.isNotEmpty()) {
+                        // ✅ 토큰 저장
+                        pref.edit().putString("jwt_token", loginResult.token).apply()
+                    }
+                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
-                Log.d("token", MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("jwt_token", null).toString())
-
+                Log.d("token", pref.getString("jwt_token", null).toString())
             }
         }
     }
