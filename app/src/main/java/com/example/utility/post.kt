@@ -1,7 +1,7 @@
 package com.example.utility
-import com.example.journey.MyApplication
 
 import android.content.Context
+import com.example.journey.MyApplication
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -10,7 +10,7 @@ import retrofit2.http.Body
 import retrofit2.http.POST
 
 data class LoginRequest(val username: String, val userpassword: String)
-data class LoginResponse(val result: String, val message: String)
+data class LoginResponse(val result: String, val message: String, val token: String)
 data class ResisterRequest(val username: String, val useremail: String, val userpassword: String)
 data class ResisterResponse(val result: String, val message: String)
 
@@ -22,7 +22,6 @@ interface ApiService {
     @POST("/register")
     suspend fun register(@Body request: ResisterRequest): Response<ResisterResponse>
 }
-
 
 object RetrofitClient {
     private const val BASE_URL = "https://api.prayanne.co.kr"
