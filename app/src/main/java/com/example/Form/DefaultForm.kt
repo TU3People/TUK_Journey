@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.Form
 
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
