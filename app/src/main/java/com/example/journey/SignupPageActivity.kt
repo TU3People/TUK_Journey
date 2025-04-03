@@ -32,9 +32,8 @@ class SignupPageActivity : AppCompatActivity(){
             if (usr_pw_txt == usr_pc_txt){
                 lifecycleScope.launch {
                     val request = ResisterRequest(usr_id_txt, usr_em_txt, usr_pw_txt)
-
                     val response = RetrofitClient.instance.register(request)
-                    println(response)
+
                     if (response.isSuccessful) {
                         val result = response.body()
                         Toast.makeText(this@SignupPageActivity, result?.message, Toast.LENGTH_SHORT).show()
