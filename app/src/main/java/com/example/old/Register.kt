@@ -1,10 +1,12 @@
-package com.example.journey
+package com.example.old
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.utility.ResisterRequest
+import com.example.utility.RetrofitClient
 import com.example.journey.databinding.ActivityRegisterBinding
 import kotlinx.coroutines.launch
 
