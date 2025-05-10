@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <!-- 1) 항상 보이는 SearchView (ifRoom) -->
+    <item
+        android:id="@+id/action_search"
+        android:title="검색"
+        app:showAsAction="ifRoom|collapseActionView"
+        app:actionViewClass="androidx.appcompat.widget.SearchView"/>
+
+    <!-- 2) 옆에 고정 메뉴 버튼(한 개) -->
+    <item
+        android:id="@+id/action_more"
+        android:title="더보기"
+        app:showAsAction="ifRoom"/>
+</menu>
