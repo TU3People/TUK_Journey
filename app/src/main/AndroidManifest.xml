@@ -15,7 +15,8 @@
         android:theme="@style/Theme.Journey"
         tools:targetApi="31"
 
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        android:name=".Token">
 
         <activity android:name=".SignupPageActivity"/>
         <activity android:name=".MainActivity"
