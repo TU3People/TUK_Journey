@@ -1,7 +1,7 @@
 package com.example.utility
 
+import com.example.journey.Token
 import android.content.Context
-import com.example.journey.MyApplication
 import okhttp3.OkHttpClient
 import retrofit2.Response
 import retrofit2.Retrofit
@@ -28,7 +28,7 @@ object RetrofitClient {
 
     // 토큰 가져오기
     private fun getToken(): String? {
-        val pref = MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
+        val pref = Token.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
         return pref.getString("jwt_token", null)
     }
 
