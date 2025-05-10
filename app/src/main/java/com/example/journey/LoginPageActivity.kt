@@ -9,7 +9,8 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.journey.databinding.ActivityMainpageBinding
+import com.example.journey.databinding.ActivityLoginBinding
+
 import com.example.utility.LoginRequest
 import com.example.utility.RetrofitClient
 import kotlinx.coroutines.launch
@@ -18,7 +19,7 @@ class LoginPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var binding = ActivityMainpageBinding.inflate(layoutInflater)
+        var binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.welcombt.setOnClickListener{

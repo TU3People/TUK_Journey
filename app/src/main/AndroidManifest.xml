@@ -18,8 +18,10 @@
         android:usesCleartextTraffic="true"
         android:name=".MyApplication">
         <activity android:name=".SignupPageActivity"></activity>
+        <activity android:name=".LoginPageActivity"
+            android:exported="false"></activity>
         <activity
-            android:name=".LoginPageActivity"
+            android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -27,6 +29,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <meta-data
+            android:name="com.naver.maps.map.NCP_KEY_ID"
+            android:value="0bz9trkjdr" />
     </application>
 
 </manifest>

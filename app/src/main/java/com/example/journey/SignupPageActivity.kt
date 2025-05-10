@@ -19,8 +19,7 @@ class SignupPageActivity : AppCompatActivity(){
         setContentView(binding.root)
 
         binding.idtext.setOnClickListener{
-            val intent = Intent(this, LoginPageActivity::class.java)
-            startActivity(intent)
+            finish()
         }
 
         binding.buttonSignup.setOnClickListener {
