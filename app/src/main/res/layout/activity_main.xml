@@ -58,7 +58,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:layout_weight="5"
-                android:background="@drawable/roundback"
+                android:background="@drawable/topround"
                 android:layout_marginTop="-20dp"
                 android:id="@+id/moveframe">
                 <FrameLayout
