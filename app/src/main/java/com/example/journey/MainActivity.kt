@@ -25,9 +25,11 @@ class MainActivity : AppCompatActivity() {
     private var backPressedTime: Long = 0
     private lateinit var naverMap: NaverMap
     private var requestLauncher : ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-            val nickname = it.data?.getStringExtra("name")
+        val nickname = it.data?.getStringExtra("name")
+        val email = it.data?.getStringExtra("email")
 
-            binding.nickname.text = nickname
+        binding.nickname.text = nickname
+        binding.email.text = email
     }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

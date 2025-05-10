@@ -20,11 +20,15 @@ class FixprofileActivity : AppCompatActivity() {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
-
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        title=""
         binding.profilecheckbt.setOnClickListener {
             var name = binding.profilename.text.toString()
+            var email = binding.profileemail.text.toString()
             val intent = Intent()
             intent.putExtra("name",name)
+            intent.putExtra("email",email)
             setResult(RESULT_OK, intent)
             finish()
         }

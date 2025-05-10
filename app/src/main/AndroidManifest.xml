@@ -18,7 +18,8 @@
         android:usesCleartextTraffic="true"
         android:name=".Token"
         >
-        <activity android:name=".FixprofileActivity"/>
+        <activity android:name=".FixprofileActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity android:name=".SignupPageActivity"/>
         <activity android:name=".MainActivity"
             android:exported="false"></activity>
