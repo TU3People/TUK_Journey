@@ -18,10 +18,10 @@
         android:usesCleartextTraffic="true"
         android:name=".MyApplication">
         <activity android:name=".SignupPageActivity"></activity>
-        <activity android:name=".LoginPageActivity"
+        <activity android:name=".MainActivity"
             android:exported="false"></activity>
         <activity
-            android:name=".MainActivity"
+            android:name=".LoginPageActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

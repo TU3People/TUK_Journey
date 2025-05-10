@@ -55,27 +55,28 @@ class LoginPageActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            var usr_id_txt = binding.loginTextId.text.toString()
-            var usr_pw_txt = binding.loginTextPassword.text.toString()
-
-            lifecycleScope.launch {
-                val request = LoginRequest(usr_id_txt, usr_pw_txt)
-                val response = RetrofitClient.instance.login(request)
-                val pref = MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
-
-                if (response.isSuccessful) {
-                    val loginResult = response.body()
-                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
-                    if (loginResult?.result == "success" && loginResult.token.isNotEmpty()) {
-                        // ✅ 토큰 저장
-                        pref.edit().putString("jwt_token", loginResult.token).apply()
-                    }
-                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
-                } else {
-                    Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
-                }
-                Log.d("token", pref.getString("jwt_token", null).toString())
-            }
+            startActivity(Intent(this,MainActivity::class.java))
+//            var usr_id_txt = binding.loginTextId.text.toString()
+//            var usr_pw_txt = binding.loginTextPassword.text.toString()
+//
+//            lifecycleScope.launch {
+//                val request = LoginRequest(usr_id_txt, usr_pw_txt)
+//                val response = RetrofitClient.instance.login(request)
+//                val pref = MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
+//
+//                if (response.isSuccessful) {
+//                    val loginResult = response.body()
+//                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
+//                    if (loginResult?.result == "success" && loginResult.token.isNotEmpty()) {
+//                        // ✅ 토큰 저장
+//                        pref.edit().putString("jwt_token", loginResult.token).apply()
+//                    }
+//                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
+//                } else {
+//                    Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+//                }
+//                Log.d("token", pref.getString("jwt_token", null).toString())
+//            }
         }
     }
 }
