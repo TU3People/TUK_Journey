@@ -55,7 +55,10 @@ class LoginPageActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            val intent = Intent(this, MainActivity::class.java)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            startActivity(intent)
+
 //            var usr_id_txt = binding.loginTextId.text.toString()
 //            var usr_pw_txt = binding.loginTextPassword.text.toString()
 //
