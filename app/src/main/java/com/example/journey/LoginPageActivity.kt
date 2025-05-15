@@ -1,19 +1,11 @@
 package com.example.journey
 
-import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
-import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.example.journey.databinding.ActivityLoginBinding
-
-import com.example.utility.LoginRequest
-import com.example.utility.RetrofitClient
-import kotlinx.coroutines.launch
 
 class LoginPageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +47,7 @@ class LoginPageActivity : AppCompatActivity() {
         }
 
         binding.buttonLogin.setOnClickListener {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this@LoginPageActivity, DivisionCalculate::class.java))
 //            var usr_id_txt = binding.loginTextId.text.toString()
 //            var usr_pw_txt = binding.loginTextPassword.text.toString()
 //

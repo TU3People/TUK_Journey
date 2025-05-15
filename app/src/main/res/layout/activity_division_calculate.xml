@@ -1,32 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/main"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:padding="16dp">
 
-    
+    <!-- 1. 타이틀 -->
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:textSize="25dp"
         android:text="N빵 계산기 - 더치페이 계산기"
+        android:textSize="25sp"
         android:background="#a972f2"
         android:padding="16dp"/>
 
-    <!-- 1. 총 금액 -->
+    <!-- 2. 총 금액 + ➕ 버튼 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="10dp"
-        android:text="💰 총 금액"
-        android:textSize="18sp"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginTop="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="💰 총 금액"
+            android:textSize="18sp"/>
 
         <ImageButton
             android:id="@+id/addbtn"
@@ -34,13 +37,11 @@
             android:layout_height="wrap_content"
             android:src="@drawable/add_circle"
             android:contentDescription="추가"
-            android:layout_gravity="center"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:padding="3dp"/>
-
-
-
+            android:padding="4dp"
+            android:layout_marginStart="8dp"/>
     </LinearLayout>
+
     <EditText
         android:id="@+id/etTotal"
         android:layout_width="match_parent"
@@ -48,11 +49,10 @@
         android:inputType="numberDecimal"
         android:hint="예: 12345"/>
 
-    <!-- 2. 인원 수 -->
+    <!-- 3. 인원 수 -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="10dp"
         android:text="👥 인원 수"
         android:textSize="18sp"
         android:layout_marginTop="12dp"/>
@@ -64,7 +64,7 @@
         android:inputType="number"
         android:hint="예: 3"/>
 
-    <!-- 3. 반올림 옵션 (선택) -->
+    <!-- 4. 반올림 옵션 -->
     <Switch
         android:id="@+id/swRound"
         android:layout_width="wrap_content"
@@ -72,23 +72,26 @@
         android:text="100원 단위 반올림"
         android:layout_marginTop="12dp"/>
 
-    <!-- 4. 계산하기 버튼 -->
+    <!-- 5. 빈 공간: 아래에 있는 뷰들을 밀어내는 역할 -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <!-- 6. 결과 출력 (버튼 바로 위) -->
+    <TextView
+        android:id="@+id/tvResult"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="결과가 여기 나와요"
+        android:textSize="20sp"
+        android:padding="12dp"/>
+
+    <!-- 7. 계산하기 버튼 (맨 아래 고정) -->
     <Button
         android:id="@+id/btnCalc"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="계산하기"
-        android:layout_marginTop="16dp"/>
-
-    <!-- 5. 결과 출력 -->
-    <TextView
-        android:id="@+id/tvResult"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:hint="결과가 여기 나와요"
-        android:textSize="20sp"
-        android:layout_marginTop="20dp"/>
-
-
-
+        android:layout_marginTop="8dp"/>
 </LinearLayout>
