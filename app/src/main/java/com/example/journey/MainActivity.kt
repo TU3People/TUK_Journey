@@ -92,6 +92,10 @@ class MainActivity : AppCompatActivity() {
             requestLauncher.launch(intent)
         }
 
+        binding.cafe.setOnClickListener {
+            startActivity(Intent(this, CafeActivity::class.java))
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -110,5 +114,6 @@ class MainActivity : AppCompatActivity() {
             backPressedTime = currentTime
             Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
         }
+        super.onBackPressed()
     }
 }
