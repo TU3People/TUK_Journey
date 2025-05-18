@@ -96,6 +96,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, CafeActivity::class.java))
         }
 
+        binding.spin.setOnClickListener {
+            startActivity(Intent(this, RouletteActivity::class.java))
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
