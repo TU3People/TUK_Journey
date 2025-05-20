@@ -44,11 +44,12 @@ class CafeActivity : AppCompatActivity() {
 
             val fragment = (binding.viewPager.adapter as? CafePagerAdapter)?.getFragment(currentIndex)
 
-            if (fragment is NcafeFragment) {
-                fragment.search(query)
+            when (fragment) {
+                is NcafeFragment -> fragment.search(query)
+                is ScafeFragment -> fragment.search(query)
             }
-
         }
+
 
     }
 }

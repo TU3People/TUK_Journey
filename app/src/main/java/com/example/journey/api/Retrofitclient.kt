@@ -1,7 +1,6 @@
 package com.example.journey.api
 
 import android.util.Log
-import com.example.journey.api.KakaoLocalApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -34,7 +33,7 @@ object RetrofitClient {
     }
 
     // 카카오 로컬 API (장소 검색용)
-    private const val KAKAO_API_KEY = "KakaoAK c00851e843df39290a896aa244ec1ae6"
+    private const val KAKAO_API_KEY = "KakaoAK f39c80240699e497bfbf3d813dac18a5"
 
     val kakaoApi: KakaoLocalApi by lazy {
         Retrofit.Builder()
