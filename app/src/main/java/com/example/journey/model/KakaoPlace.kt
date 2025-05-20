@@ -12,5 +12,8 @@ data class KakaoPlace(
     val x: String, // 경도
     val y: String, // 위도
     val phone: String,
-    @SerializedName("place_url") val url: String
+    @SerializedName("place_url") val url: String,
+
+    val thumbnailUrl: String? = null
 )
+

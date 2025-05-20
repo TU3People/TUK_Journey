@@ -33,7 +33,7 @@ class CafeActivity : AppCompatActivity() {
         TabLayoutMediator(binding.tabs, binding.viewPager) { tab, position ->
             tab.text = when (position) {
                 0 -> "주변 추천 카페"
-                1 -> "별점 높은 카페"
+                1 -> "정왕역 근처 카페"
                 else -> "탭"
             }
         }.attach()

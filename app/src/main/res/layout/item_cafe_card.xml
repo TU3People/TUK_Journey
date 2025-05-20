@@ -13,14 +13,6 @@
         android:orientation="horizontal"
         android:padding="12dp">
 
-        <!-- 카페 이미지 -->
-        <ImageView
-            android:id="@+id/cafeImage"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/default_cafe"
-            android:layout_marginEnd="12dp" />
 
         <!-- 텍스트 + 별점 -->
         <LinearLayout
