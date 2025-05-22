@@ -100,6 +100,10 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RouletteActivity::class.java))
         }
 
+        binding.timetable.setOnClickListener {
+            startActivity(Intent(this, ScheduleActivity::class.java))
+        }
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

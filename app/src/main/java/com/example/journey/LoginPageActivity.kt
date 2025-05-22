@@ -61,31 +61,31 @@ class LoginPageActivity : AppCompatActivity() {
             // 메인 메뉴 intent, intent는 flag를 추가하여, 이전 intent 삭제, 이후, 메인에서 뒤로 갈려고 해도, 삭제되었으므로, 바로 꺼짐
             val intent = Intent(this, MainActivity::class.java)
             intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
-            startActivity(intent)
-//            lifecycleScope.launch {
-//                val request = LoginRequest(usr_id_txt, usr_pw_txt)
-//                val response = RetrofitClient.instance.login(request)
-//                val pref = Token.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
-//
-//                if (response.isSuccessful) {
-//                    val loginResult = response.body()
-//                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
-//                    if (loginResult?.result == "success") {
-//                        // intent 로 메인 메뉴 전환
-//                        startActivity(intent)
-//
-//                        // new token일 때, 저장
-//                        if(loginResult.token.isNotEmpty()){
-//                            // ✅ 토큰 저장
-//                            pref.edit().putString("jwt_token", loginResult.token).apply()
-//                        }
-//                    }
-//                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
-//                } else {
-//                    Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
-//                }
-//                Log.d("token", pref.getString("jwt_token", null).toString())
-//            }
+//            startActivity(intent)
+            lifecycleScope.launch {
+                val request = LoginRequest(usr_id_txt, usr_pw_txt)
+                val response = RetrofitClient.instance.login(request)
+                val pref = Token.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
+
+                if (response.isSuccessful) {
+                    val loginResult = response.body()
+                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
+                    if (loginResult?.result == "success") {
+                        // intent 로 메인 메뉴 전환
+                        startActivity(intent)
+
+                        // new token일 때, 저장
+                        if(loginResult.token.isNotEmpty()){
+                            // ✅ 토큰 저장
+                            pref.edit().putString("jwt_token", loginResult.token).apply()
+                        }
+                    }
+                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
+                } else {
+                    Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
+                }
+                Log.d("token", pref.getString("jwt_token", null).toString())
+            }
         }
     }
 }
