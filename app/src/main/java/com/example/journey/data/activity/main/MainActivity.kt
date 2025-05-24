@@ -1,17 +1,22 @@
 package com.example.journey.data.activity.main
 
+import SearchFragment
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.journey.R
@@ -19,8 +24,15 @@ import com.example.journey.data.activity.Roulette.RouletteActivity
 import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
 import com.example.journey.databinding.ActivityMainBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
+import com.naver.maps.map.overlay.Marker
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
@@ -34,6 +46,57 @@ class MainActivity : AppCompatActivity() {
         binding.nickname.text = nickname
         binding.email.text = email
     }
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var currentLat: Double = 0.0
+    private var currentLng: Double = 0.0
+    private var currentMarker: Marker? = null
+
+
+    private fun moveToLocation(lat: Double, lng: Double, name: String?) {
+        val coord = LatLng(lat, lng)
+
+        currentMarker?.map = null
+
+        currentMarker = Marker().apply {
+            position = coord
+            captionText = name ?: ""
+            map = naverMap
+        }
+
+        val cameraUpdate = CameraUpdate.scrollAndZoomTo(coord, 16.0)
+            .animate(CameraAnimation.Fly)
+
+        naverMap.moveCamera(cameraUpdate)
+    }
+
+
+    private fun getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 권한이 없으면 요청
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                100
+            )
+            return
+        }
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                currentLat = location.latitude
+                currentLng = location.longitude
+
+                val userLocation = LatLng(currentLat, currentLng)
+                val update = CameraUpdate.scrollAndZoomTo(userLocation, 15.0)
+                    .animate(CameraAnimation.Easing)
+                naverMap.moveCamera(update)
+            }
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -51,9 +114,20 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toggle.syncState()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+
         var isExpanded = false
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as MapFragment
-        mapFragment.getMapAsync{ naverMap ->
+        mapFragment.getMapAsync{ map ->
+            naverMap = map
+            getCurrentLocation()
+            if (currentLat != 0.0 && currentLng != 0.0) {
+                val location = LatLng(currentLat, currentLng)
+                val cameraUpdate = CameraUpdate.scrollTo(location)
+                naverMap.moveCamera(cameraUpdate)
+            }
         }
         fun dpToPx(dp: Float): Float {
             return dp * Resources.getSystem().displayMetrics.density
@@ -93,6 +167,34 @@ class MainActivity : AppCompatActivity() {
             }
         }
 
+        supportFragmentManager.setFragmentResultListener("place_result", this) { _, bundle ->
+            val name = bundle.getString("name")
+            val lat = bundle.getDouble("lat")
+            val lng = bundle.getDouble("lng")
+            moveToLocation(lat, lng, name)
+        }
+
+
+
+        binding.search.setOnClickListener {
+            val fragment = SearchFragment().apply {
+                arguments = Bundle().apply {
+                    putDouble("lat", currentLat)
+                    putDouble("lng", currentLng)
+                }
+            }
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.search_fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+
+            findViewById<FrameLayout>(R.id.search_fragment_container).visibility = View.VISIBLE
+        }
+
+
+
+
         binding.mset.setOnClickListener {
             val intent = Intent(this, FixprofileActivity::class.java)
             requestLauncher.launch(intent)
@@ -118,6 +220,21 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation()
+        } else {
+            Toast.makeText(this, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     override fun onBackPressed() {
         val currentTime = System.currentTimeMillis()
