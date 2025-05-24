@@ -20,6 +20,7 @@
         android:theme="@style/Theme.Journey"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <activity
             android:name=".data.activity.rest.RestActivity"
             android:exported="false" />

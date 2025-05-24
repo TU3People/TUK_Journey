@@ -12,6 +12,6 @@ interface KakaoLocalApi {
         @Query("x") longitude: String,
         @Query("y") latitude: String,
         @Query("radius") radius: Int = 1000,
-        @Query("sort") sort: String = "distance"
+        @Query("sort") sort: String = "accuracy"
     ): Response<KakaoSearchResponse>
 }
