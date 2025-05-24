@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33CECECE"> <!-- ripple 효과 색상 (연한 검정) -->
+
+    <!-- ripple이 퍼지는 영역을 라운드로 제한하는 마스크 -->
+    <item android:id="@android:id/mask">
+        <shape android:shape="rectangle">
+            <corners android:radius="16dp"/>
+            <solid android:color="#FFFFFF"/> <!-- 아무 색이나 상관없음 -->
+        </shape>
+    </item>
+
+    <!-- 기본 배경: 너가 만든 그라디언트 + 라운드 -->
+    <item>
+        <shape android:shape="rectangle">
+            <gradient
+                android:startColor="#F84747"
+                android:endColor="#6565FF"
+                android:angle="45"/>
+            <corners android:radius="16dp"/>
+        </shape>
+    </item>
+</ripple>

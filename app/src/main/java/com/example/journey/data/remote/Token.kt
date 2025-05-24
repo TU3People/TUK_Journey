@@ -1,9 +1,9 @@
-package com.example.journey
+package com.example.journey.data.remote
 
 import android.app.Application
 import android.content.Context
 
-class MyApplication : Application() {
+class Token : Application() {
     override fun onCreate() {
         super.onCreate()
         appContext = applicationContext
