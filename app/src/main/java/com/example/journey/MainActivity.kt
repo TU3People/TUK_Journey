@@ -9,12 +9,12 @@ import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContract
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.journey.data.activity.cafe.CafeActivity
 import com.example.journey.databinding.ActivityMainBinding
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap

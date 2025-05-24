@@ -23,14 +23,14 @@
             android:name=".ScheduleActivity"
             android:exported="false" />
         <activity
-            android:name=".CafewebviewActivity"
+            android:name=".data.activity.cafe.CafewebviewActivity"
             android:exported="false" />
         <activity
             android:name=".RouletteActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
-            android:name=".CafeActivity"
+            android:name=".data.activity.cafe.CafeActivity"
             android:exported="false"
             android:parentActivityName=".MainActivity" />
         <activity
