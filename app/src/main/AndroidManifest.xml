@@ -24,9 +24,13 @@
             android:exported="false" />
         <activity
             android:name=".data.activity.schedule.ScheduleActivity"
+            android:parentActivityName=".data.activity.main.MainActivity"
             android:exported="false" />
         <activity
             android:name=".data.activity.cafe.CafewebviewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".data.activity.rest.RestwebviewActivity"
             android:exported="false" />
         <activity
             android:name=".data.activity.Roulette.RouletteActivity"
