@@ -1,14 +1,14 @@
-package com.example.journey
+package com.example.journey.data.activity.Login
 
-import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.journey.databinding.ActivitySignuppageBinding
-import com.example.utility.ResisterRequest
-import com.example.utility.RetrofitClient
+import com.example.journey.data.remote.model.auth.RegisterRequest
+import com.example.journey.data.remote.network.RetrofitProvider
 import kotlinx.coroutines.launch
 
 class SignupPageActivity : AppCompatActivity(){
@@ -30,13 +30,14 @@ class SignupPageActivity : AppCompatActivity(){
 
             if (usr_pw_txt == usr_pc_txt){
                 lifecycleScope.launch {
-                    val request = ResisterRequest(usr_id_txt, usr_em_txt, usr_pw_txt)
+                    val req  = RegisterRequest(usr_id_txt, usr_em_txt, usr_pw_txt)
+                    val resp = RetrofitProvider.authApi.register(req)
 
-                    val response = RetrofitClient.instance.register(request)
-                    println(response)
-                    if (response.isSuccessful) {
-                        val result = response.body()
+                    println(resp)
+                    if (resp.isSuccessful) {
+                        val result = resp.body()
                         Toast.makeText(this@SignupPageActivity, result?.message, Toast.LENGTH_SHORT).show()
+                        finish()
                     } else {
                         Toast.makeText(this@SignupPageActivity, "개발자 문의 접근 실패", Toast.LENGTH_SHORT).show()
                     }

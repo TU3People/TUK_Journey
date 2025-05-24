@@ -30,6 +30,7 @@ object RetrofitProvider {
     }
 
     /* ─────── API 서비스 팩토리 ─────── */
+    /* 아래는 Interface를 기반으로 호출하게 되어있음 */
     val authApi: AuthApiService by lazy {
         retrofit.create(AuthApiService::class.java)
     }

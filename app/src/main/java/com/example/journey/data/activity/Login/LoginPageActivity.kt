@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.Login
 
 import android.content.Context
 import android.content.Intent
@@ -9,9 +9,11 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.journey.data.activity.main.MainActivity
+import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityLoginBinding
-import com.example.journey.data.remote.model.auth.LoginRequest         // ✅ 새 경로
-import com.example.journey.data.remote.network.RetrofitProvider        // ✅ 새 경로
+import com.example.journey.data.remote.model.auth.LoginRequest
+import com.example.journey.data.remote.network.RetrofitProvider
 import kotlinx.coroutines.launch
 
 class LoginPageActivity : AppCompatActivity() {
@@ -51,6 +53,8 @@ class LoginPageActivity : AppCompatActivity() {
             val intent = Intent(this, SignupPageActivity::class.java)
             startActivity(intent)
         }
+
+        /* Login Button */
         binding.buttonLogin.setOnClickListener {
             val idTxt = binding.loginTextId.text.toString()
             val pwTxt = binding.loginTextPassword.text.toString()

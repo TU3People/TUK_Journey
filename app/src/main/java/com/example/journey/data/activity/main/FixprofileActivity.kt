@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.main
 
 import android.content.Intent
 import android.os.Bundle
@@ -6,6 +6,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.journey.R
 import com.example.journey.databinding.ActivityFixprofileBinding
 
 class FixprofileActivity : AppCompatActivity() {

@@ -86,7 +86,7 @@
         </LinearLayout>
 
     </LinearLayout>
-    <com.example.journey.RouletteView
+    <com.example.journey.data.activity.Roulette.RouletteView
         android:id="@+id/rouletteView"
         android:layout_width="match_parent"
         android:layout_height="0dp"

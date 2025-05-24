@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.Roulette
 
 
 import android.graphics.Color
@@ -9,6 +9,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.journey.R
 import com.example.journey.databinding.ActivityRouletteBinding
 import kotlin.random.Random
 

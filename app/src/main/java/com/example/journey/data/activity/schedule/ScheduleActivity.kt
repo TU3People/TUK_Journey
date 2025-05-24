@@ -1,19 +1,14 @@
-package com.example.journey
+package com.example.journey.data.activity.schedule
 
 import android.os.Bundle
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.collection.intFloatMapOf
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.journey.R
 import com.example.journey.databinding.ActivityScheduleBinding
 import com.google.android.material.tabs.TabLayout
-import com.google.android.material.tabs.TabLayout.OnTabSelectedListener
-import com.google.android.material.tabs.TabLayout.Tab
-import com.google.android.material.tabs.TabLayout.TabLayoutOnPageChangeListener
-import com.google.gson.annotations.SerializedName
-
 
 class ScheduleActivity : AppCompatActivity() {
     lateinit var binding: ActivityScheduleBinding
@@ -47,15 +42,15 @@ class ScheduleActivity : AppCompatActivity() {
 
         }
 
-        binding.schTab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener{
-            override fun onTabReselected(tab: Tab?) {
+        binding.schTab.addOnTabSelectedListener(object: TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(tab: TabLayout.Tab?) {
 
             }
-            override fun onTabUnselected(tab: Tab?) {
+            override fun onTabUnselected(tab: TabLayout.Tab?) {
 
             }
 
-            override fun onTabSelected(tab: Tab?) {
+            override fun onTabSelected(tab: TabLayout.Tab?) {
                 Toast.makeText(applicationContext, "d", Toast.LENGTH_LONG).show()
             }
         })
@@ -63,17 +58,3 @@ class ScheduleActivity : AppCompatActivity() {
     }
 
 }
-///* 변환: 시간 → 분 */
-//fun SlotDto.toCell(): Cell {
-//    val startMin = start.toMinutes()     // "09:00" → 540
-//    val endMin   = end.toMinutes()       // 630
-//    return Cell(
-//        row = startMin / 30,
-//        col = day + 1,                   // 0열은 시간
-//        rowSpan = (endMin - startMin) / 30,
-//        slot = this
-//    )
-//}
-private fun String.toMinutes(): Int =
-    split(":").let { it[0].toInt()*60 + it[1].toInt() }
-

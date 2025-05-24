@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.main
 
 import android.content.Intent
 import android.content.res.Resources
@@ -14,6 +14,9 @@ import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.journey.R
+import com.example.journey.data.activity.Roulette.RouletteActivity
+import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
 import com.example.journey.databinding.ActivityMainBinding
 import com.naver.maps.map.MapFragment
@@ -36,7 +39,10 @@ class MainActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        toggle = ActionBarDrawerToggle(this,binding.drawer, R.string.drawer_open, R.string.drawer_close)
+        toggle = ActionBarDrawerToggle(this,binding.drawer,
+            R.string.drawer_open,
+            R.string.drawer_close
+        )
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)

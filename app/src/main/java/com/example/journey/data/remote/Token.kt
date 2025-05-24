@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.remote
 
 import android.app.Application
 import android.content.Context

@@ -1,7 +1,7 @@
 package com.example.journey.data.remote.network
 
 import android.content.Context
-import com.example.journey.Token     // 기존에 있던 객체 그대로 사용
+import com.example.journey.data.remote.Token     // 기존에 있던 객체 그대로 사용
 import okhttp3.Interceptor
 import okhttp3.Response
 

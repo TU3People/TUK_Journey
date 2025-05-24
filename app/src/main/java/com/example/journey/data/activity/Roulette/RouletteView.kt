@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.Roulette
 
 import android.animation.ValueAnimator
 import android.content.Context
