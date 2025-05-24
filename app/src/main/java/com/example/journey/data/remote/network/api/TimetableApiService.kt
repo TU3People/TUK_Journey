@@ -1,6 +1,6 @@
 package com.example.journey.data.remote.network.api
 
-import com.example.journey.data.remote.model.timetable.*
+import com.example.journey.data.remote.network.model.timetable.*
 import com.example.journey.data.remote.network.model.timetable.CreateScheduleRequest
 import com.example.journey.data.remote.network.model.timetable.ScheduleDto
 import com.example.journey.data.remote.network.model.timetable.SlotDto

@@ -1,6 +1,6 @@
 package com.example.journey.data.remote.network.api
 
-import com.example.journey.data.remote.model.auth.*
+import com.example.journey.data.remote.network.model.auth.*
 import com.example.journey.data.remote.network.model.auth.LoginRequest
 import com.example.journey.data.remote.network.model.auth.LoginResponse
 import com.example.journey.data.remote.network.model.auth.RegisterRequest
