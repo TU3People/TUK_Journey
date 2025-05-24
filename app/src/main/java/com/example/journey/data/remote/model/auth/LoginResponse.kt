@@ -1,4 +1,4 @@
-package com.example.journey.data.remote.network.model.auth
+package com.example.journey.data.remote.model.auth
 
 import com.google.gson.annotations.SerializedName
 

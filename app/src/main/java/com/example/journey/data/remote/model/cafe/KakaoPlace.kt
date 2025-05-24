@@ -1,4 +1,4 @@
-package com.example.journey.data.remote.network.model.cafe
+package com.example.journey.data.remote.model.cafe
 
 import com.google.gson.annotations.SerializedName
 

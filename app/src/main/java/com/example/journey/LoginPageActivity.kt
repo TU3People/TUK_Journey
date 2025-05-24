@@ -4,13 +4,12 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.journey.databinding.ActivityLoginBinding
-import com.example.journey.data.remote.network.model.auth.LoginRequest         // ✅ 새 경로
+import com.example.journey.data.remote.model.auth.LoginRequest         // ✅ 새 경로
 import com.example.journey.data.remote.network.RetrofitProvider        // ✅ 새 경로
 import kotlinx.coroutines.launch
 

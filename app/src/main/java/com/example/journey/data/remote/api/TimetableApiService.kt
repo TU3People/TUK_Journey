@@ -1,9 +1,8 @@
-package com.example.journey.data.remote.network.api
+package com.example.journey.data.remote.api
 
-import com.example.journey.data.remote.network.model.timetable.*
-import com.example.journey.data.remote.network.model.timetable.CreateScheduleRequest
-import com.example.journey.data.remote.network.model.timetable.ScheduleDto
-import com.example.journey.data.remote.network.model.timetable.SlotDto
+import com.example.journey.data.remote.model.timetable.CreateScheduleRequest
+import com.example.journey.data.remote.model.timetable.ScheduleDto
+import com.example.journey.data.remote.model.timetable.SlotDto
 import retrofit2.Response
 import retrofit2.http.*
 

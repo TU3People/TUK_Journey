@@ -1,6 +1,6 @@
 package com.example.journey.data.api
 
-import com.example.journey.data.remote.network.model.cafe.KakaoSearchResponse
+import com.example.journey.data.remote.model.cafe.KakaoSearchResponse
 import retrofit2.Response
 import retrofit2.http.GET
 import retrofit2.http.Query

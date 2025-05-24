@@ -1,7 +1,7 @@
 package com.example.journey.data.remote.network
 
-import com.example.journey.data.remote.network.api.AuthApiService
-import com.example.journey.data.remote.network.api.TimetableApiService
+import com.example.journey.data.remote.api.AuthApiService
+import com.example.journey.data.remote.api.TimetableApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory

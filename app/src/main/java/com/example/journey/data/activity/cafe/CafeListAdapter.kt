@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.journey.R
-import com.example.journey.data.remote.network.model.cafe.KakaoPlace
+import com.example.journey.data.remote.model.cafe.KakaoPlace
 
 class CafeListAdapter : ListAdapter<KakaoPlace, CafeListAdapter.CafeViewHolder>(CafeListDiffCallback()) {
 
