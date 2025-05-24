@@ -33,7 +33,7 @@ object RetrofitClient {
     }
 
     // 카카오 로컬 API (장소 검색용)
-    private const val KAKAO_API_KEY = "KakaoAK f39c80240699e497bfbf3d813dac18a5"
+    private const val KAKAO_API_KEY = "KakaoAK c50f156ee0ac90a322f7f1610f7e8ff9"
 
     val kakaoApi: KakaoLocalApi by lazy {
         Retrofit.Builder()
