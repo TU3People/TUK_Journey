@@ -1,4 +1,4 @@
-package com.example.journey.data.api
+package com.example.journey.data.remote.api
 
 import com.example.journey.data.remote.model.cafe.KakaoSearchResponse
 import retrofit2.Response
