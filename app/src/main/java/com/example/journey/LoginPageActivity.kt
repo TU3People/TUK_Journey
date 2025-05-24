@@ -4,6 +4,7 @@ import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
@@ -21,8 +22,35 @@ class LoginPageActivity : AppCompatActivity() {
         val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        /* … 웰컴 애니메이션 부분 동일 … */
+        binding.welcombt.setOnClickListener{
+            binding.mainImageView.animate()
+                .translationY(-400f)
+                .setDuration(300)
+                .start()
 
+            binding.welcome.animate()
+                .alpha(0f)
+                .setDuration(300)
+                .withEndAction{binding.welcome.visibility = View.GONE}
+                .start()
+
+            binding.welcombt.animate()
+                .alpha(0f)
+                .setDuration(300)
+                .withEndAction{binding.welcombt.visibility = View.GONE}
+                .start()
+
+            binding.loginForm.visibility = View.VISIBLE
+            binding.loginForm.animate()
+                .alpha(1f)
+                .translationY(-300f)
+                .setDuration(300)
+                .start()
+        }
+        binding.idtext.setOnClickListener{
+            val intent = Intent(this, SignupPageActivity::class.java)
+            startActivity(intent)
+        }
         binding.buttonLogin.setOnClickListener {
             val idTxt = binding.loginTextId.text.toString()
             val pwTxt = binding.loginTextPassword.text.toString()
