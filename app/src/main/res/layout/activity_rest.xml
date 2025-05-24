@@ -30,7 +30,7 @@
             android:layout_height="50dp"
             android:background="@drawable/rounded_border"
             android:layout_margin="10dp"
-            android:hint="찾고싶은 카페를 입력하세요."
+            android:hint="찾고싶은 맛집을 입력하세요."
             android:paddingLeft="15dp"
             android:maxLines="1" />
         <ImageButton
@@ -51,11 +51,11 @@
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="주변 추천 카페"/>
+            android:text="주변 추천 맛집"/>
         <com.google.android.material.tabs.TabItem
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="별점 높은 카페"/>
+            android:text="별점 높은 맛집"/>
     </com.google.android.material.tabs.TabLayout>
 
     <androidx.viewpager2.widget.ViewPager2
