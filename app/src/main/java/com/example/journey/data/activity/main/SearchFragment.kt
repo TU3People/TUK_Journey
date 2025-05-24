@@ -57,14 +57,18 @@ class SearchFragment : BottomSheetDialogFragment() {
         binding.searchResultRecycler.adapter = keywordAdapter
         binding.searchResultRecycler.layoutManager = LinearLayoutManager(requireContext())
 
-
+        var isSearching = false
         binding.searchButton.setOnClickListener {
+            if(isSearching) return@setOnClickListener
+            isSearching = false
+
             val keyword = binding.searchInput.text.toString().trim()
             if (keyword.isNotEmpty()) {
                 historyManager.addKeyword(keyword)
                 keywordAdapter.updateList(historyManager.getHistory())
                 searchKeyword(keyword)
             }
+            binding.searchButton.postDelayed({isSearching = false}, 1000)
         }
         binding.clearHistory.setOnClickListener {
             historyManager.clearHistory()
@@ -76,15 +80,17 @@ class SearchFragment : BottomSheetDialogFragment() {
     private fun searchKeyword(query: String) {
         lifecycleScope.launch {
             try {
+                val lat = if (currentLat == 0.0) 37.340174 else currentLat
+                val lng = if (currentLng == 0.0) 126.7335933 else currentLng
+
                 if (currentLat == 0.0 || currentLng == 0.0) {
-                    Toast.makeText(requireContext(), "위치 정보를 가져오는 중입니다.", Toast.LENGTH_SHORT).show()
-                    return@launch
+                    Toast.makeText(requireContext(), "위치 정보가 없어 기본 위치 사용", Toast.LENGTH_SHORT).show()
                 }
 
                 val response = RetrofitClient.kakaoApi.searchKeyword(
                     query = query,
-                    longitude = currentLng.toString(),
-                    latitude = currentLat.toString(),
+                    longitude = lng.toString(),
+                    latitude = lat.toString(),
                     radius = 1500,
                     sort = "accuracy"
                 )
@@ -95,8 +101,8 @@ class SearchFragment : BottomSheetDialogFragment() {
 
                     // 위치 기반 거리 필터링
                     val filtered = placeList.filter {
-                        val dx = it.x.toDouble() - currentLng
-                        val dy = it.y.toDouble() - currentLat
+                        val dx = it.x.toDouble() - lng
+                        val dy = it.y.toDouble() - lat
                         val distance = sqrt(dx * dx + dy * dy) * 111000
                         distance <= 1500
                     }
