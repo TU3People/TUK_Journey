@@ -23,6 +23,7 @@ import com.example.journey.R
 import com.example.journey.data.activity.Roulette.RouletteActivity
 import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
+import com.example.journey.data.activity.calc.DivisionCalculate
 import com.example.journey.data.activity.rest.RestActivity
 import com.example.journey.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -215,6 +216,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.matzip.setOnClickListener {
             startActivity(Intent(this, RestActivity::class.java))
+        }
+
+        binding.cal.setOnClickListener {
+            startActivity(Intent(this, DivisionCalculate::class.java))
         }
 
     }

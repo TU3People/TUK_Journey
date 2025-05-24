@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.calc
 
 import android.os.Bundle
 import android.text.InputType

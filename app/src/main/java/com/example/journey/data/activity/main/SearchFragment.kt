@@ -10,7 +10,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.journey.R
 import com.example.journey.data.activity.main.KeywordAdapter
-import com.example.journey.data.api.RetrofitClient
+import com.example.journey.data.remote.network.RetrofitClient
 import com.example.journey.data.remote.model.cafe.KakaoPlace
 import com.example.journey.databinding.FragmentSearchBinding
 import com.example.journey.util.SearchHistoryManager
