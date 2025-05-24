@@ -1,6 +1,8 @@
-package com.example.journey.data.api
+package com.example.journey.data.remote.network
 
 import android.util.Log
+import com.example.journey.data.remote.api.KakaoLocalApi
+import com.example.journey.data.remote.api.NaverSearchApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
