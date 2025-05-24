@@ -1,4 +1,4 @@
-package com.example.journey
+package com.example.journey.data.activity.Login
 
 import android.content.Context
 import android.content.Intent
@@ -9,16 +9,19 @@ import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.journey.databinding.ActivityMainpageBinding
-import com.example.utility.LoginRequest
-import com.example.utility.RetrofitClient
+import com.example.journey.data.activity.main.MainActivity
+import com.example.journey.data.remote.Token
+import com.example.journey.databinding.ActivityLoginBinding
+import com.example.journey.data.remote.model.auth.LoginRequest
+import com.example.journey.data.remote.network.RetrofitProvider
 import kotlinx.coroutines.launch
 
 class LoginPageActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
-        var binding = ActivityMainpageBinding.inflate(layoutInflater)
+        val binding = ActivityLoginBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         binding.welcombt.setOnClickListener{
@@ -45,31 +48,38 @@ class LoginPageActivity : AppCompatActivity() {
                 .translationY(-300f)
                 .setDuration(300)
                 .start()
-//            logo.isClickable = false
-//            logo.isFocusable = false
         }
         binding.idtext.setOnClickListener{
             val intent = Intent(this, SignupPageActivity::class.java)
             startActivity(intent)
         }
 
+        /* Login Button */
         binding.buttonLogin.setOnClickListener {
-            var usr_id_txt = binding.loginTextId.text.toString()
-            var usr_pw_txt = binding.loginTextPassword.text.toString()
+            val idTxt = binding.loginTextId.text.toString()
+            val pwTxt = binding.loginTextPassword.text.toString()
+
+            val mainIntent = Intent(this, MainActivity::class.java).apply {
+                flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+            }
 
             lifecycleScope.launch {
-                val request = LoginRequest(usr_id_txt, usr_pw_txt)
-                val response = RetrofitClient.instance.login(request)
-                val pref = MyApplication.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE)
+                val req  = LoginRequest(idTxt, pwTxt)
+                val resp = RetrofitProvider.authApi.login(req)   // ✅ 변경된 호출부
+                val pref = Token.appContext
+                    .getSharedPreferences("auth", Context.MODE_PRIVATE)
 
-                if (response.isSuccessful) {
-                    val loginResult = response.body()
-                    Log.d("token:", "${loginResult?.result}, ${loginResult?.token}")
-                    if (loginResult?.result == "success" && loginResult.token.isNotEmpty()) {
-                        // ✅ 토큰 저장
-                        pref.edit().putString("jwt_token", loginResult.token).apply()
+                if (resp.isSuccessful) {
+                    resp.body()?.let { body ->
+                        Toast.makeText(this@LoginPageActivity, body.message, Toast.LENGTH_SHORT).show()
+
+                        if (body.result == "success") {
+                            if (body.token.isNotEmpty()) {
+                                pref.edit().putString("jwt_token", body.token).apply()
+                            }
+                            startActivity(mainIntent)
+                        }
                     }
-                    Toast.makeText(this@LoginPageActivity, loginResult?.message, Toast.LENGTH_SHORT).show()
                 } else {
                     Toast.makeText(this@LoginPageActivity, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
