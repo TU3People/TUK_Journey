@@ -35,7 +35,8 @@
             android:exported="false" />
         <activity
             android:name=".data.activity.calc.DivisionCalculate"
-            android:exported="false" />
+            android:exported="false"
+            android:parentActivityName=".data.activity.main.MainActivity"/>
         <activity
             android:name=".data.activity.Roulette.RouletteActivity"
             android:exported="false"
@@ -50,7 +51,9 @@
         <activity android:name=".data.activity.Login.SignupPageActivity" />
         <activity
             android:name=".data.activity.main.MainActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation|screenSize"/>
         <activity
             android:name=".data.activity.Login.LoginPageActivity"
             android:exported="true">

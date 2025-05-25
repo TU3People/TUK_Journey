@@ -5,17 +5,20 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:background="#ffffff">
 
-    <!-- 1. 타이틀 -->
-    <TextView
+    <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="N빵 계산기 - 더치페이 계산기"
-        android:textSize="25sp"
-        android:background="#a972f2"
-        android:padding="16dp"/>
+        android:id="@+id/toolbar"
+        android:background="#A871F0"
+        android:layout_margin="10dp">
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="N빵 계산기 - 더치페이 계산기"
+            android:textSize="25dp"/>
+    </androidx.appcompat.widget.Toolbar>
 
     <!-- 2. 총 금액 + ➕ 버튼 -->
     <LinearLayout
@@ -23,7 +26,9 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp">
 
         <TextView
             android:layout_width="wrap_content"
@@ -47,7 +52,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="numberDecimal"
-        android:hint="예: 12345"/>
+        android:hint="예: 12345"
+        android:layout_margin="10dp"/>
 
     <!-- 3. 인원 수 -->
     <TextView
@@ -55,14 +61,17 @@
         android:layout_height="wrap_content"
         android:text="👥 인원 수"
         android:textSize="18sp"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <EditText
         android:id="@+id/etCount"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:inputType="number"
-        android:hint="예: 3"/>
+        android:hint="예: 3"
+        android:layout_margin="10dp"/>
 
     <!-- 4. 반올림 옵션 -->
     <Switch
@@ -70,7 +79,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="100원 단위 반올림"
-        android:layout_marginTop="12dp"/>
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 
     <!-- 5. 빈 공간: 아래에 있는 뷰들을 밀어내는 역할 -->
     <View
@@ -93,5 +104,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="계산하기"
-        android:layout_marginTop="8dp"/>
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"/>
 </LinearLayout>

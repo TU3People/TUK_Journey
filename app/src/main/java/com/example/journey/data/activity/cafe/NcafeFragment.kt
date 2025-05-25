@@ -11,6 +11,7 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.journey.data.remote.model.cafe.KakaoPlace
 import com.example.journey.data.remote.network.RetrofitClient
 import com.example.journey.databinding.FragmentNcafeBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -104,11 +105,12 @@ class NcafeFragment : Fragment() {
                 )
 
                 if (response.isSuccessful) {
-                    response.body()?.documents?.let {
-                        Log.d("NcafeFragment", "받은 카페 수: ${it.size}")
-                        adapter.submitList(it)
-                    }
-                } else {
+                    val list: List<KakaoPlace> = response.body()?.documents.orEmpty()
+                    Log.d("NcafeFragment", "받은 카페 수: ${list.size}")
+                    adapter.submitList(list)
+                }
+
+             else {
                     Log.e("NcafeFragment", "API 오류: ${response.code()}")
                 }
             } catch (e: Exception) {

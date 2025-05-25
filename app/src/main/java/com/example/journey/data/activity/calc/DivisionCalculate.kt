@@ -6,6 +6,9 @@ import android.widget.EditText
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
+import com.example.journey.R
 import com.example.journey.databinding.ActivityDivisionCalculateBinding
 import kotlin.math.roundToInt
 
@@ -21,8 +24,14 @@ class DivisionCalculate : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         binding = ActivityDivisionCalculateBinding.inflate(layoutInflater)
-
         setContentView(binding.root)
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
+            insets
+        }
+        setSupportActionBar(binding.toolbar)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 // ➕ 버튼 클릭 리스너
         binding.addbtn.setOnClickListener {
             val options = arrayOf("미리 저장된 비용 추가", "직접 입력하기")

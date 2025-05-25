@@ -99,28 +99,48 @@ class SearchFragment : BottomSheetDialogFragment() {
                     val placeList = response.body()?.documents.orEmpty()
                     Log.d("SearchDebug", "총 검색 결과 수: ${placeList.size}")
 
-                    // 위치 기반 거리 필터링
-                    val filtered = placeList.filter {
-                        val dx = it.x.toDouble() - lng
-                        val dy = it.y.toDouble() - lat
+                    val filtered = placeList.filter { item: KakaoPlace ->
+                        val x = item.x?.toDoubleOrNull()
+                        val y = item.y?.toDoubleOrNull()
+                        if (x == null || y == null) return@filter false
+
+                        val dx = x - lng
+                        val dy = y - lat
                         val distance = sqrt(dx * dx + dy * dy) * 111000
                         distance <= 1500
                     }
 
+                    val top5 = filtered.sortedBy { item: KakaoPlace ->
+                        val x = item.x?.toDoubleOrNull() ?: Double.MAX_VALUE
+                        val y = item.y?.toDoubleOrNull() ?: Double.MAX_VALUE
+                        val dx = x - lng
+                        val dy = y - lat
+                        dx * dx + dy * dy
+                    }.take(5)
+
                     Log.d("SearchDebug", "반경 1500m 내 결과 수: ${filtered.size}")
 
-                    when {
-                        filtered.isNotEmpty() -> {
-                            onSearchResultClicked(filtered[0])
+                    if (top5.isNotEmpty()) {
+                        val bundle = Bundle().apply {
+                            putParcelableArrayList("places", top5.toCollection(ArrayList()))
                         }
-                        placeList.isNotEmpty() -> {
-                            Toast.makeText(requireContext(), "반경 내 결과는 없어 전국 결과를 표시합니다.", Toast.LENGTH_SHORT).show()
-                            onSearchResultClicked(placeList[0])
-                        }
-                        else -> {
-                            Toast.makeText(requireContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
-                        }
+
+                        parentFragmentManager.setFragmentResult("place_list_result", bundle)
+                        parentFragmentManager.popBackStack()
+                        return@launch
                     }
+
+
+
+
+
+                    if (placeList.isNotEmpty()) {
+                        Toast.makeText(requireContext(), "반경 내 결과는 없어 전국 결과를 표시합니다.", Toast.LENGTH_SHORT).show()
+                        onSearchResultClicked(placeList[0])
+                    } else {
+                        Toast.makeText(requireContext(), "검색 결과가 없습니다.", Toast.LENGTH_SHORT).show()
+                    }
+
 
                 } else {
                     Toast.makeText(requireContext(), "API 호출 실패: ${response.code()}", Toast.LENGTH_SHORT).show()
