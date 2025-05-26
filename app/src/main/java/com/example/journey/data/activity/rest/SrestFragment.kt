@@ -1,4 +1,4 @@
-package com.example.journey.data.activity.cafe
+package com.example.journey.data.activity.rest
 
 import android.os.Bundle
 import android.util.Log
@@ -13,7 +13,7 @@ import com.example.journey.databinding.FragmentScafeBinding
 import kotlinx.coroutines.launch
 
 
-class ScafeFragment : Fragment() {
+class SrestFragment : Fragment() {
 
     private var _binding: FragmentScafeBinding? = null
     private val binding get() = _binding!!
@@ -38,7 +38,7 @@ class ScafeFragment : Fragment() {
         super.onResume()
         if (isFirstLoad) {
             isFirstLoad = false
-            fetchCafeData("카페", "126.7426", "37.3514")
+            fetchCafeData("맛집", "126.7426", "37.3514")
         }
     }
 
@@ -57,14 +57,14 @@ class ScafeFragment : Fragment() {
 
                 if (response.isSuccessful) {
                     response.body()?.documents?.let {
-                        Log.d("ScafeFragment", "받은 카페 수: ${it.size}")
+                        Log.d("SrestFragment", "받은 맛집 수: ${it.size}")
                         adapter.submitList(it)
                     }
                 } else {
-                    Log.e("ScafeFragment", "API 오류: ${response.code()}")
+                    Log.e("SrestFragment", "API 오류: ${response.code()}")
                 }
             } catch (e: Exception) {
-                Log.e("ScafeFragment", "네트워크 오류: ${e.message}")
+                Log.e("SrestFragment", "네트워크 오류: ${e.message}")
             }
         }
     }

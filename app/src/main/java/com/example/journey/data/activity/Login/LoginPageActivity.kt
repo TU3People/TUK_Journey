@@ -11,9 +11,9 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.journey.data.activity.main.MainActivity
 import com.example.journey.data.remote.Token
-import com.example.journey.databinding.ActivityLoginBinding
 import com.example.journey.data.remote.model.auth.LoginRequest
 import com.example.journey.data.remote.network.RetrofitProvider
+import com.example.journey.databinding.ActivityLoginBinding
 import kotlinx.coroutines.launch
 
 class LoginPageActivity : AppCompatActivity() {
@@ -68,6 +68,8 @@ class LoginPageActivity : AppCompatActivity() {
                 val resp = RetrofitProvider.authApi.login(req)   // ✅ 변경된 호출부
                 val pref = Token.appContext
                     .getSharedPreferences("auth", Context.MODE_PRIVATE)
+                val prefProfile = Token.appContext
+                    .getSharedPreferences("profile", Context.MODE_PRIVATE)
 
                 if (resp.isSuccessful) {
                     resp.body()?.let { body ->
@@ -75,7 +77,10 @@ class LoginPageActivity : AppCompatActivity() {
 
                         if (body.result == "success") {
                             if (body.token.isNotEmpty()) {
-                                pref.edit().putString("jwt_token", body.token).apply()
+                                pref.       edit().putString("jwt_token", body.token).apply()
+                                prefProfile.edit().putString("id",        body.id).apply()
+                                prefProfile.edit().putString("username",  body.username).apply()
+                                prefProfile.edit().putString("useremail", body.useremail).apply()
                             }
                             startActivity(mainIntent)
                         }

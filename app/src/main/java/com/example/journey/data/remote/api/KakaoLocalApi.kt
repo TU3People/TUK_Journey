@@ -1,4 +1,4 @@
-package com.example.journey.data.api
+package com.example.journey.data.remote.api
 
 import com.example.journey.data.remote.model.cafe.KakaoSearchResponse
 import retrofit2.Response
@@ -12,6 +12,6 @@ interface KakaoLocalApi {
         @Query("x") longitude: String,
         @Query("y") latitude: String,
         @Query("radius") radius: Int = 1000,
-        @Query("sort") sort: String = "distance"
+        @Query("sort") sort: String = "accuracy"
     ): Response<KakaoSearchResponse>
 }

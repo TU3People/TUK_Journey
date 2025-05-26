@@ -13,6 +13,7 @@
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
             <androidx.fragment.app.FragmentContainerView
                 android:id="@+id/map"
                 android:name="com.naver.maps.map.MapFragment"
@@ -20,7 +21,20 @@
                 android:layout_height="match_parent"
                 app:navermap_latitude="37.340174"
                 app:navermap_longitude="126.7335933" />
-        <LinearLayout
+            <ImageButton
+                android:id="@+id/clearMarkersButton"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_gravity="end|center"
+                android:layout_marginTop="80dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/round_button_bg"
+                android:src="@drawable/ic_clear"
+                android:scaleType="centerInside"
+                android:visibility="gone"/>
+
+
+            <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
@@ -36,7 +50,19 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/backgg"
                     android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"/>
+                <TextView
+                    android:id="@+id/toptext"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="nolleogasil"
+                    android:textStyle="italic"
+                    android:textSize="40dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/jua"
+                    android:gravity="center"/>
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -51,9 +77,18 @@
                     android:textColor="#858585"
                     android:text="검색어를 입력하세요"
                     android:textSize="18dp"
+                    android:id="@+id/search"
                     />
             </androidx.appcompat.widget.Toolbar>
             </FrameLayout>
+
+            <FrameLayout
+                android:id="@+id/search_fragment_container"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#80000000"
+                android:visibility="gone" />
+
             <FrameLayout
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
@@ -277,57 +312,13 @@
             </FrameLayout>
         </LinearLayout>
         </FrameLayout>
-        <LinearLayout
-            android:layout_width="250dp"
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
             android:layout_gravity="start"
-            android:orientation="vertical"
-            android:padding="15dp">
-            <TextView
-                android:id="@+id/mset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수정"
-                android:layout_gravity="right"
-                android:textSize="15dp"
-                android:textColor="#929292"/>
-            <FrameLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/profile_border"
-                android:padding="4dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginBottom="20dp">
-
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/defaultimg2" />
-            </FrameLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/nickname"
-                android:text="닉네임1"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textColor="#000000"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/email"
-                android:text="example@gamil.com"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textColor="#909090"
-                android:layout_marginTop="10dp"/>
-        </LinearLayout>
+            app:headerLayout="@layout/navigation_header"
+            app:menu="@menu/menu_navigation"
+            android:id="@+id/main_drawer_view"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

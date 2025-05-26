@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".data.activity.schedule.ScheduleActivity">
+    android:background="#ffffff">
 
     <androidx.appcompat.widget.Toolbar
         android:layout_width="match_parent"
@@ -17,25 +15,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="시간표"
+            android:text="Share"
             android:layout_gravity="center"
             android:textSize="20dp"
             android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <com.google.android.material.tabs.TabLayout
+    <Button
+        android:id="@+id/selectImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/sch_tab"/>
-
-    <com.example.journey.data.activity.schedule.GridTimetable
-        android:id="@+id/gridTimetable"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:text="사진 선택"
+        android:layout_margin="10dp"
+        android:backgroundTint="#FFB7B7"/>
 
     <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageRecyclerView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/scheduleRecy"/>
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
 </LinearLayout>

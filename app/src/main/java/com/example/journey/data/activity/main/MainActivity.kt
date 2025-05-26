@@ -1,39 +1,166 @@
 package com.example.journey.data.activity.main
 
+import SearchFragment
+import android.Manifest
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.os.Bundle
 import android.util.Log
 import android.view.MenuItem
 import android.view.View
+import android.widget.FrameLayout
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.app.ActivityCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.journey.R
 import com.example.journey.data.activity.Roulette.RouletteActivity
 import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
+import com.example.journey.data.activity.calc.DivisionCalculate
+import com.example.journey.data.activity.rest.RestActivity
+import com.example.journey.data.activity.share.ImageshareActivity
+import com.example.journey.data.remote.model.cafe.KakaoPlace
+import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityMainBinding
+import com.google.android.gms.location.FusedLocationProviderClient
+import com.google.android.gms.location.LocationServices
+import com.naver.maps.geometry.LatLng
+import com.naver.maps.map.CameraAnimation
+import com.naver.maps.map.CameraUpdate
 import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
+import com.naver.maps.map.overlay.InfoWindow
+import com.naver.maps.map.overlay.Marker
+import android.content.Context
+import com.example.journey.databinding.NavigationHeaderBinding
+
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
     lateinit var toggle: ActionBarDrawerToggle
     private var backPressedTime: Long = 0
     private lateinit var naverMap: NaverMap
-    private var requestLauncher : ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        val nickname = it.data?.getStringExtra("name")
-        val email = it.data?.getStringExtra("email")
+    private lateinit var headerBinding: NavigationHeaderBinding
+    private var requestLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            val nickname = it.data?.getStringExtra("name") ?: return@registerForActivityResult
 
-        binding.nickname.text = nickname
-        binding.email.text = email
+            val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+            pref.edit().putString("nickname", nickname).apply()
+
+            headerBinding.realnickname.text = nickname
+        }
+
+
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
+    private var currentLat: Double = 0.0
+    private var currentLng: Double = 0.0
+    private var currentMarker: Marker? = null
+    private val markers = mutableListOf<Marker>()
+    private val infoWindow = InfoWindow()
+
+    private fun moveToLocation(lat: Double, lng: Double, name: String?) {
+        val coord = LatLng(lat, lng)
+
+        currentMarker?.map = null
+
+        currentMarker = Marker().apply {
+            position = coord
+            captionText = name ?: ""
+            map = naverMap
+        }
+
+        val cameraUpdate = CameraUpdate.scrollAndZoomTo(coord, 16.0)
+            .animate(CameraAnimation.Fly)
+
+        naverMap.moveCamera(cameraUpdate)
     }
+
+    private fun displayTopFivePlaces(places: List<KakaoPlace>) {
+        markers.forEach { it.map = null }
+        markers.clear()
+
+
+        val sortedPlaces = places.sortedBy {
+            val dx = it.x.toDouble() - currentLng
+            val dy = it.y.toDouble() - currentLat
+            dx * dx + dy * dy
+        }.take(5)
+
+        sortedPlaces.forEach { place ->
+            val lat = place.y.toDoubleOrNull() ?: return@forEach
+            val lng = place.x.toDoubleOrNull() ?: return@forEach
+            val marker = Marker().apply {
+                position = LatLng(lat, lng)
+                captionText = place.name
+                map = naverMap
+            }
+
+            marker.setOnClickListener {
+                showPlaceInfo(marker, place)
+                true
+            }
+
+            markers.add(marker)
+        }
+
+        sortedPlaces.firstOrNull()?.let {
+            val cameraUpdate = CameraUpdate.scrollAndZoomTo(
+                LatLng(it.y.toDouble(), it.x.toDouble()),
+                15.0
+            ).animate(CameraAnimation.Easing)
+            naverMap.moveCamera(cameraUpdate)
+        }
+    }
+
+    private fun showPlaceInfo(marker: Marker, place: KakaoPlace) {
+        infoWindow.adapter = object : InfoWindow.DefaultTextAdapter(this) {
+            override fun getText(infoWindow: InfoWindow): CharSequence {
+                return "${place.name}\n${place.roadAddress}\n전화: ${place.phone}"
+            }
+        }
+        if (infoWindow.marker == marker) {
+            infoWindow.close()
+        } else {
+            infoWindow.open(marker)
+        }
+    }
+
+
+    private fun getCurrentLocation() {
+        if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+            ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            // 권한이 없으면 요청
+            ActivityCompat.requestPermissions(
+                this,
+                arrayOf(Manifest.permission.ACCESS_FINE_LOCATION),
+                100
+            )
+            return
+        }
+
+        fusedLocationClient.lastLocation.addOnSuccessListener { location ->
+            if (location != null) {
+                currentLat = location.latitude
+                currentLng = location.longitude
+
+                val userLocation = LatLng(currentLat, currentLng)
+                val update = CameraUpdate.scrollAndZoomTo(userLocation, 15.0)
+                    .animate(CameraAnimation.Easing)
+                naverMap.moveCamera(update)
+            }
+        }
+    }
+
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
@@ -51,12 +178,38 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         toggle.syncState()
+
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
+
+        binding.clearMarkersButton.isEnabled = false
+
         var isExpanded = false
         val mapFragment = supportFragmentManager.findFragmentById(R.id.map) as MapFragment
-        mapFragment.getMapAsync{ naverMap ->
+        mapFragment.getMapAsync{ map ->
+            naverMap = map
+            getCurrentLocation()
+            if (currentLat != 0.0 && currentLng != 0.0) {
+                val location = LatLng(currentLat, currentLng)
+                val cameraUpdate = CameraUpdate.scrollTo(location)
+                naverMap.moveCamera(cameraUpdate)
+            }
         }
         fun dpToPx(dp: Float): Float {
             return dp * Resources.getSystem().displayMetrics.density
+        }
+
+        binding.mainDrawerView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.matzipm -> startActivity(Intent(this, RestActivity::class.java))
+                R.id.cafem -> startActivity(Intent(this, CafeActivity::class.java))
+                R.id.activitym -> Toast.makeText(this, "준비중입니다!", Toast.LENGTH_SHORT).show()
+                R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
+                R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
+                R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
+                R.id.timetablem -> startActivity(Intent(this, ScheduleActivity::class.java))
+            }
+            binding.drawer.closeDrawer(binding.mainDrawerView) // 네비게이션 닫기
+            true
         }
 
         binding.handlewrapper.setOnClickListener {
@@ -69,15 +222,21 @@ class MainActivity : AppCompatActivity() {
                 val translationY = if (isExpanded) 0f else moveDistance
                 val targetAlpha = if (isExpanded) 1f else 0f
 
+                binding.clearMarkersButton.visibility = if (isExpanded) View.GONE else View.VISIBLE
+
+                binding.clearMarkersButton.isEnabled = true
+
                 binding.topbackimage.animate()
                     .alpha(targetAlpha)
                     .setDuration(200)
                     .withEndAction {
                         if(isExpanded) {
                             binding.topbackimage.visibility = View.VISIBLE
+                            binding.toptext.visibility = View.VISIBLE
                         }
                         else{
                             binding.topbackimage.visibility = View.GONE
+                            binding.toptext.visibility = View.GONE
                         }
                     }
                     .start()
@@ -90,13 +249,60 @@ class MainActivity : AppCompatActivity() {
                         isExpanded = !isExpanded
                     }
                     .start()
+
+
             }
         }
 
-        binding.mset.setOnClickListener {
+        supportFragmentManager.setFragmentResultListener("place_result", this) { _, bundle ->
+            val name = bundle.getString("name")
+            val lat = bundle.getDouble("lat")
+            val lng = bundle.getDouble("lng")
+            moveToLocation(lat, lng, name)
+        }
+
+        supportFragmentManager.setFragmentResultListener("place_list_result", this) { _, bundle ->
+            val places = bundle.getParcelableArrayList<KakaoPlace>("places")
+            Log.d("MainDebug", "받은 장소 수: ${places?.size}")
+            places?.let {
+                displayTopFivePlaces(it)
+            }
+        }
+
+        binding.search.setOnClickListener {
+            val fragment = SearchFragment().apply {
+                arguments = Bundle().apply {
+                    putDouble("lat", currentLat)
+                    putDouble("lng", currentLng)
+                }
+            }
+
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.search_fragment_container, fragment)
+                .addToBackStack(null)
+                .commit()
+
+            findViewById<FrameLayout>(R.id.search_fragment_container).visibility = View.VISIBLE
+        }
+
+        val headerView = binding.mainDrawerView.getHeaderView(0)
+        headerBinding = NavigationHeaderBinding.bind(headerView)
+
+
+
+        val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val rnick = pref.getString("nickname", null) ?: pref.getString("username", "") ?: ""
+        headerBinding.realnickname.text = rnick
+        headerBinding.nickname.text = pref.getString("username", null).toString()
+        headerBinding.email.text = pref.getString("useremail", null).toString()
+
+
+        headerBinding.mset.setOnClickListener {
             val intent = Intent(this, FixprofileActivity::class.java)
+            intent.putExtra("nickname", headerBinding.realnickname.text.toString() )
             requestLauncher.launch(intent)
         }
+
 
         binding.cafe.setOnClickListener {
             startActivity(Intent(this, CafeActivity::class.java))
@@ -110,6 +316,25 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ScheduleActivity::class.java))
         }
 
+        binding.matzip.setOnClickListener {
+            startActivity(Intent(this, RestActivity::class.java))
+        }
+
+        binding.cal.setOnClickListener {
+            startActivity(Intent(this, DivisionCalculate::class.java))
+        }
+
+        binding.share.setOnClickListener {
+            startActivity(Intent(this, ImageshareActivity::class.java))
+        }
+
+        binding.clearMarkersButton.setOnClickListener {
+            markers.forEach { it.map = null }
+            markers.clear()
+            infoWindow.close() // 정보창도 같이 닫기 (선택)
+        }
+
+
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -118,6 +343,21 @@ class MainActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
+
+        if (requestCode == 100 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+            getCurrentLocation()
+        } else {
+            Toast.makeText(this, "위치 권한이 필요합니다.", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     override fun onBackPressed() {
         val currentTime = System.currentTimeMillis()
@@ -128,6 +368,5 @@ class MainActivity : AppCompatActivity() {
             backPressedTime = currentTime
             Toast.makeText(this, "한 번 더 누르면 종료됩니다.", Toast.LENGTH_SHORT).show()
         }
-        super.onBackPressed()
     }
 }

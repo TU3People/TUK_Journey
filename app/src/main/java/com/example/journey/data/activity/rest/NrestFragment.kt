@@ -1,4 +1,4 @@
-package com.example.journey.data.activity.cafe
+package com.example.journey.data.activity.rest
 
 import android.Manifest
 import android.content.pm.PackageManager
@@ -11,7 +11,6 @@ import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.journey.data.remote.model.cafe.KakaoPlace
 import com.example.journey.data.remote.network.RetrofitClient
 import com.example.journey.databinding.FragmentNcafeBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -19,7 +18,7 @@ import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
 
 
-class NcafeFragment : Fragment() {
+class NrestFragment : Fragment() {
 
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var _binding: FragmentNcafeBinding? = null
@@ -55,7 +54,7 @@ class NcafeFragment : Fragment() {
         checkLocationPermissionAndFetch(query)
     }
 
-    private fun checkLocationPermissionAndFetch(query: String = "카페") {
+    private fun checkLocationPermissionAndFetch(query: String = "맛집") {
         val permissions = arrayOf(Manifest.permission.ACCESS_FINE_LOCATION)
 
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -65,7 +64,7 @@ class NcafeFragment : Fragment() {
         }
     }
 
-    private fun getLastLocationAndFetchCafe(query: String = "카페") {
+    private fun getLastLocationAndFetchCafe(query: String = "맛집") {
         if (ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
             ActivityCompat.checkSelfPermission(requireContext(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             Log.e("NcafeFragment", "위치 권한 없음")
@@ -105,12 +104,11 @@ class NcafeFragment : Fragment() {
                 )
 
                 if (response.isSuccessful) {
-                    val list: List<KakaoPlace> = response.body()?.documents.orEmpty()
-                    Log.d("NcafeFragment", "받은 카페 수: ${list.size}")
-                    adapter.submitList(list)
-                }
-
-             else {
+                    response.body()?.documents?.let {
+                        Log.d("NcafeFragment", "받은 맛집 수: ${it.size}")
+                        adapter.submitList(it)
+                    }
+                } else {
                     Log.e("NcafeFragment", "API 오류: ${response.code()}")
                 }
             } catch (e: Exception) {

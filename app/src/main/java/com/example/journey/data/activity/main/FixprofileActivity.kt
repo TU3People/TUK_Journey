@@ -1,5 +1,6 @@
 package com.example.journey.data.activity.main
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import androidx.activity.enableEdgeToEdge
@@ -24,12 +25,16 @@ class FixprofileActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
         title=""
+        val nickname = intent.getStringExtra("nickname")
+        binding.profilename.setText(nickname)
         binding.profilecheckbt.setOnClickListener {
             var name = binding.profilename.text.toString()
-            var email = binding.profileemail.text.toString()
+
+            val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+            pref.edit().putString("nickname", name).apply()
+
             val intent = Intent()
             intent.putExtra("name",name)
-            intent.putExtra("email",email)
             setResult(RESULT_OK, intent)
             finish()
         }
