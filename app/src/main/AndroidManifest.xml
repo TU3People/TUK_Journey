@@ -48,8 +48,6 @@
             android:name=".data.activity.schedule.ScheduleActivity"
             android:exported="false"
             android:parentActivityName=".data.activity.main.MainActivity" />
-        <activity android:name=".data.activity.rest.RestwebviewActivity"
-            android:exported="false"/>
         <activity
             android:name=".data.activity.cafe.CafewebviewActivity"
             android:exported="false" />
