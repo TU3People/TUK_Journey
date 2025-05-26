@@ -45,9 +45,13 @@ class ScheduleListFragment : Fragment() {
     }
 
     private fun onItemLongClick(item: ScheduleDto): Boolean {
+        // 예: 삭제 메뉴
         PopupMenu(requireContext(), binding.recyclerView).apply {
             menu.add("삭제").setOnMenuItemClickListener {
-                lifecycleScope.launch { repo.deleteSchedule(item.scheduleId) }
+                viewLifecycleOwner.lifecycleScope.launch {
+                    repo.deleteSchedule(item.scheduleId)
+                    adapter.submitList(repo.getAllSchedules()) // 새로고침
+                }
                 true
             }
         }.show()

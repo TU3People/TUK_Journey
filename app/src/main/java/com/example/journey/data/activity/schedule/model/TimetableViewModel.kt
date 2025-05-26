@@ -8,9 +8,12 @@ import com.example.journey.data.activity.schedule.Slot
 import com.example.journey.data.remote.model.repo.ScheduleRepository
 import com.example.journey.data.remote.model.repo.toDomain
 import com.example.journey.data.remote.model.repo.toDto
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class TimetableViewModel @Inject constructor(
+@HiltViewModel
+class TimetableViewModel constructor(
     private val repo: ScheduleRepository
 ) : ViewModel() {
 

@@ -16,7 +16,7 @@ interface TimetableApiService {
 
     @GET("/schedules/{id}")
     suspend fun getAllSchedules(
-    ): Response<ScheduleDto>
+    ): Response<List<ScheduleDto>>
 
     /** 새 시간표 생성 */
     @POST("/schedules")

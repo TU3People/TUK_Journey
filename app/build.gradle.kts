@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("kotlin-kapt")
+    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -15,7 +16,7 @@ android {
 
     defaultConfig {
         applicationId = "com.example.journey"
-        minSdk = 24
+        minSdk = 26
         targetSdk = 35
         versionCode = 1
         versionName = "1.0"
@@ -59,11 +60,16 @@ dependencies {
     implementation("com.google.android.gms:play-services-location:21.0.1")
     implementation("com.github.bumptech.glide:glide:4.16.0")
 
-    // 시간표 Material, ViewPager2, Lifecycle-KTX
+    // 시간표 Material, ViewPager2, Lifecycle-KTX, hilt
     implementation("androidx.viewpager2:viewpager2:1.0.0")
     implementation("com.google.android.material:material:1.12.0")
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:2.8.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.8.0")
+
+    implementation("com.google.dagger:hilt-android:2.51")
+    kapt          ("com.google.dagger:hilt-compiler:2.51")
+
+    implementation("androidx.hilt:hilt-navigation-fragment:1.2.0")
 
 
 

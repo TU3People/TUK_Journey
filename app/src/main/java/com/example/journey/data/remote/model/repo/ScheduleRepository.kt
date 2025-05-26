@@ -8,12 +8,15 @@ import com.example.journey.data.remote.model.timetable.CreateScheduleRequest
 import com.example.journey.data.remote.model.timetable.ScheduleDataDto
 import com.example.journey.data.remote.model.timetable.SlotDto
 import com.example.journey.data.remote.network.RetrofitProvider
+import javax.inject.Inject
+import javax.inject.Singleton
 
-class ScheduleRepository(
-    private val api: TimetableApiService = RetrofitProvider.timetableApi
+@Singleton
+class ScheduleRepository @Inject constructor(
+    private val api: TimetableApiService
 ) {
     suspend fun getSchedule(id: Long) = api.getSchedule(id).body()
-    suspend fun getAllSchedules()  = api.getAllSchedules().body()// ?: emptyList()
+    suspend fun getAllSchedules()  = api.getAllSchedules().body() ?: emptyList()
     suspend fun createSchedule(title: String, slots: List<SlotDto>): Long? {
         val dto = api.createSchedule(CreateScheduleRequest(username = "", title,
             ScheduleDataDto(slots))).body()

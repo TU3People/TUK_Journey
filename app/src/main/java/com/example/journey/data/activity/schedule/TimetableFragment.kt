@@ -5,10 +5,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
 import com.example.journey.data.activity.schedule.model.TimetableViewModel
 import com.example.journey.databinding.FragmentTimetableBinding
+import dagger.hilt.android.AndroidEntryPoint
 
-//@AndroidEntryPoint   // Hilt 사용 시
+@AndroidEntryPoint   // Hilt 사용 시
 class TimetableFragment : Fragment() {
 
     private lateinit var binding: FragmentTimetableBinding
