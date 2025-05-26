@@ -28,7 +28,7 @@ class FixprofileActivity : AppCompatActivity() {
         val nickname = intent.getStringExtra("nickname")
         binding.profilename.setText(nickname)
         binding.profilecheckbt.setOnClickListener {
-            var name = "@" + binding.profilename.text.toString()
+            var name = binding.profilename.text.toString()
 
             val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
             pref.edit().putString("nickname", name).apply()
