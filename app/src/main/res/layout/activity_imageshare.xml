@@ -21,18 +21,20 @@
             android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:scaleType="centerCrop"
-        android:background="#CCCCCC"
-        android:layout_margin="15dp"/>
-
     <Button
         android:id="@+id/selectImageButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="사진 불러오기"
-        android:layout_margin="15dp"/>
+        android:text="사진 선택"
+        android:layout_margin="10dp"
+        android:backgroundTint="#FFB7B7"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/imageRecyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:padding="8dp"
+        android:clipToPadding="false" />
+
 </LinearLayout>
