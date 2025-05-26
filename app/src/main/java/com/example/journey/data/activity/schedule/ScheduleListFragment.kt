@@ -9,7 +9,10 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.journey.data.remote.model.repo.ScheduleRepository
 import com.example.journey.data.remote.model.timetable.ScheduleDto
+import com.example.journey.databinding.ActivityScheduleBinding
+import com.example.journey.databinding.FragmentScheduleListBinding
 import kotlinx.coroutines.launch
 
 class ScheduleListFragment : Fragment() {
@@ -34,11 +37,11 @@ class ScheduleListFragment : Fragment() {
 
     private fun onItemClick(item: ScheduleDto) {
         // ‘시간표’ 탭으로 이동 & TimetableFragment 에 id 전달
-        (activity as? ScheduleActivity)?.apply {
-            binding.viewPager.currentItem = 0
-            supportFragmentManager.setFragmentResult("openSchedule",
-                bundleOf("scheduleId" to item.scheduleId))
-        }
+        (activity as? ScheduleActivity)?.openTimetableTab()   // 외부 접근으로 해결
+        parentFragmentManager.setFragmentResult(
+            "openSchedule",
+            bundleOf("scheduleId" to item.scheduleId)
+        )
     }
 
     private fun onItemLongClick(item: ScheduleDto): Boolean {

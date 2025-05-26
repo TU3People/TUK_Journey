@@ -18,6 +18,11 @@ class ScheduleActivity : AppCompatActivity() {
     private lateinit var binding: ActivityScheduleBinding
     val titles = arrayListOf("시간표", "시간표 리스트", "새 시간표")
 
+    // 외부 접근을 허용
+    fun openTimetableTab() {
+        binding.viewPager.currentItem = 0
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()

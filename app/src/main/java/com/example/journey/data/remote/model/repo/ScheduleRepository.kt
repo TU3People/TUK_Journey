@@ -13,7 +13,7 @@ class ScheduleRepository(
     private val api: TimetableApiService = RetrofitProvider.timetableApi
 ) {
     suspend fun getSchedule(id: Long) = api.getSchedule(id).body()
-    suspend fun getAllSchedules()  = api.getAllSchedules().body() ?: emptyList()
+    suspend fun getAllSchedules()  = api.getAllSchedules().body()// ?: emptyList()
     suspend fun createSchedule(title: String, slots: List<SlotDto>): Long? {
         val dto = api.createSchedule(CreateScheduleRequest(username = "", title,
             ScheduleDataDto(slots))).body()

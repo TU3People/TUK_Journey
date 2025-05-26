@@ -1,7 +1,14 @@
 package com.example.journey.data.activity.schedule.model
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.journey.data.activity.schedule.Slot
+import com.example.journey.data.remote.model.repo.ScheduleRepository
+import com.example.journey.data.remote.model.repo.toDomain
+import com.example.journey.data.remote.model.repo.toDto
+import kotlinx.coroutines.launch
 
 class TimetableViewModel @Inject constructor(
     private val repo: ScheduleRepository
