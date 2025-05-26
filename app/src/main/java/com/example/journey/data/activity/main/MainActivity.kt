@@ -2,6 +2,7 @@ package com.example.journey.data.activity.main
 
 import SearchFragment
 import android.Manifest
+import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -21,10 +22,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.journey.R
 import com.example.journey.data.activity.Roulette.RouletteActivity
-import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
 import com.example.journey.data.activity.calc.DivisionCalculate
 import com.example.journey.data.activity.rest.RestActivity
+import com.example.journey.data.activity.schedule.ScheduleActivity
+import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -221,6 +223,15 @@ class MainActivity : AppCompatActivity() {
         binding.cal.setOnClickListener {
             startActivity(Intent(this, DivisionCalculate::class.java))
         }
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
+
+        binding.nickname.text = pref.getString("username", null).toString()
+        binding.email.text = pref.getString("useremail", null).toString()
 
     }
 
