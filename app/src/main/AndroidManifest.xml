@@ -38,6 +38,8 @@
             android:exported="false"
             android:parentActivityName=".data.activity.main.MainActivity"
             />
+        <activity android:name=".data.activity.rest.RestwebviewActivity"
+            android:exported="false"/>
         <activity
             android:name=".data.activity.rest.RestActivity"
             android:exported="false"

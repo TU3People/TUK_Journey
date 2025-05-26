@@ -11,13 +11,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/toolbar"
-        android:background="#A871F0"
         android:layout_margin="10dp">
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="N빵 계산기 - 더치페이 계산기"
-            android:textSize="25dp"/>
+            android:text="더치페이 계산기"
+            android:textSize="20dp"
+            android:textStyle="bold"/>
     </androidx.appcompat.widget.Toolbar>
 
     <!-- 2. 총 금액 + ➕ 버튼 -->
@@ -83,20 +83,19 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"/>
 
-    <!-- 5. 빈 공간: 아래에 있는 뷰들을 밀어내는 역할 -->
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
+
 
     <!-- 6. 결과 출력 (버튼 바로 위) -->
     <TextView
         android:id="@+id/tvResult"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="결과가 여기 나와요"
-        android:textSize="20sp"
-        android:padding="12dp"/>
+        android:layout_height="0dp"
+        android:text=""
+        android:textSize="30sp"
+        android:padding="5dp"
+        android:background="#ffffff"
+        android:layout_weight="1"
+        android:gravity="center"/>
 
     <!-- 7. 계산하기 버튼 (맨 아래 고정) -->
     <Button
