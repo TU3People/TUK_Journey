@@ -1,3 +1,4 @@
+package com.example.journey.data.remote.model.timetable
 
 import com.example.journey.data.remote.model.timetable.ScheduleDataDto
 import com.google.gson.annotations.SerializedName

@@ -1,6 +1,8 @@
 package com.example.journey.data.activity.schedule
 
+import android.graphics.Color
 import androidx.annotation.ColorInt
+import com.example.journey.data.remote.model.timetable.SlotDto
 
 /** 30 분 단위 교시 1칸 */
 data class Slot(

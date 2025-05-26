@@ -14,6 +14,10 @@ interface TimetableApiService {
         @Path("id") id: Long
     ): Response<ScheduleDto>
 
+    @GET("/schedules/{id}")
+    suspend fun getAllSchedules(
+    ): Response<ScheduleDto>
+
     /** 새 시간표 생성 */
     @POST("/schedules")
     suspend fun createSchedule(
@@ -25,5 +29,10 @@ interface TimetableApiService {
     suspend fun upsertSlots(
         @Path("id") id: Long,
         @Body slots: List<SlotDto>
+    ): Response<Unit>
+
+    @DELETE("/schedules/{id}")
+    suspend fun deleteSchedule(
+        @Path("id") id: Long,
     ): Response<Unit>
 }
