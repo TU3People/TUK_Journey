@@ -225,7 +225,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
-                                android:text="바우처 공유"
+                                android:text="이미지 공유"
                                 android:layout_gravity="center"
                                 android:gravity="center"/>
                         </LinearLayout>
