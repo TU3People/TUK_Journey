@@ -29,10 +29,12 @@ class ScheduleActivity : AppCompatActivity() {
         tabFunc()
 
         /* 1) 서버 호출 → JSON → Slot 리스트 변환
+        //Slot(day, start, end, subject, Color)
               여기서는 하드코딩 예시 */
         val slots = listOf(
             Slot(1, "09:00".toMinutes(), "10:30".toMinutes(), "OS",   Color.parseColor("#FF7043")),
             Slot(2, "13:30".toMinutes(), "15:00".toMinutes(), "Math", Color.parseColor("#4CAF50"))
+
         )
 
         /* 2) Custom View(GridTimetable)에 리스트 투입 */
@@ -41,9 +43,9 @@ class ScheduleActivity : AppCompatActivity() {
 
     private fun tabFunc(){
 
-        val list1 = arrayListOf("일", "월", "화", "수", "목", "금", "토")
+        val list1 = arrayListOf("시간표", "시간표 리스트", "새 시간표")
 
-        for(i in 0..6){
+        for(i in 0..list1.size - 1){
             binding.schTab.addTab(binding.schTab.newTab().apply { text = list1[i] })
 
         }
@@ -58,6 +60,9 @@ class ScheduleActivity : AppCompatActivity() {
 
             override fun onTabSelected(tab: TabLayout.Tab?) {
                 Toast.makeText(applicationContext, "d", Toast.LENGTH_LONG).show()
+//                when(tab?.text){
+//                    list1[0] ->
+//                }
             }
         })
 
