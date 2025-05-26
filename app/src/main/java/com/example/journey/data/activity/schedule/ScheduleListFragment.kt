@@ -13,13 +13,16 @@ import com.example.journey.data.remote.model.repo.ScheduleRepository
 import com.example.journey.data.remote.model.timetable.ScheduleDto
 import com.example.journey.databinding.ActivityScheduleBinding
 import com.example.journey.databinding.FragmentScheduleListBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class ScheduleListFragment : Fragment() {
 
     private lateinit var binding: FragmentScheduleListBinding
     private val adapter = ScheduleAdapter(::onItemClick, ::onItemLongClick)
-    private val repo by lazy { ScheduleRepository() }
+    @Inject lateinit var repo: ScheduleRepository
 
     override fun onCreateView(i: LayoutInflater, p: ViewGroup?, s: Bundle?): View {
         binding = FragmentScheduleListBinding.inflate(i, p, false)

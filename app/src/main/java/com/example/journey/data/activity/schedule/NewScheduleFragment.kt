@@ -10,12 +10,16 @@ import androidx.lifecycle.lifecycleScope
 import com.example.journey.data.remote.model.repo.ScheduleRepository
 import com.example.journey.data.remote.model.timetable.SlotDto
 import com.example.journey.databinding.FragmentNewScheduleBinding
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class NewScheduleFragment : Fragment() {
 
     private lateinit var binding: FragmentNewScheduleBinding
-    private val repo by lazy { ScheduleRepository() }
+    @Inject
+    lateinit var repo: ScheduleRepository
 
     override fun onCreateView(i: LayoutInflater, p: ViewGroup?, s: Bundle?): View {
         binding = FragmentNewScheduleBinding.inflate(i, p, false)
