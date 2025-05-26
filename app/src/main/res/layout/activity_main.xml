@@ -50,7 +50,18 @@
                     android:layout_height="match_parent"
                     android:src="@drawable/backgg"
                     android:scaleType="centerCrop"
-                    android:adjustViewBounds="true" />
+                    android:adjustViewBounds="true"/>
+                <TextView
+                    android:id="@+id/toptext"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="nolleogasil"
+                    android:textStyle="italic"
+                    android:textSize="40dp"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#ffffff"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/jua"/>
             <androidx.appcompat.widget.Toolbar
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
@@ -300,57 +311,13 @@
             </FrameLayout>
         </LinearLayout>
         </FrameLayout>
-        <LinearLayout
-            android:layout_width="250dp"
+        <com.google.android.material.navigation.NavigationView
+            android:layout_width="200dp"
             android:layout_height="match_parent"
-            android:background="#FFFFFF"
             android:layout_gravity="start"
-            android:orientation="vertical"
-            android:padding="15dp">
-            <TextView
-                android:id="@+id/mset"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="수정"
-                android:layout_gravity="right"
-                android:textSize="15dp"
-                android:textColor="#929292"/>
-            <FrameLayout
-                android:layout_width="100dp"
-                android:layout_height="100dp"
-                android:layout_gravity="center"
-                android:background="@drawable/profile_border"
-                android:padding="4dp"
-                android:layout_marginTop="70dp"
-                android:layout_marginBottom="20dp">
-
-                <ImageView
-                    android:id="@+id/profile_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    android:src="@drawable/defaultimg2" />
-            </FrameLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/nickname"
-                android:text="닉네임1"
-                android:textSize="20dp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textColor="#000000"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:id="@+id/email"
-                android:text="example@gamil.com"
-                android:textSize="15dp"
-                android:textStyle="bold"
-                android:layout_gravity="center"
-                android:textColor="#909090"
-                android:layout_marginTop="10dp"/>
-        </LinearLayout>
+            app:headerLayout="@layout/navigation_header"
+            app:menu="@menu/menu_navigation"
+            android:id="@+id/main_drawer_view"/>
     </androidx.drawerlayout.widget.DrawerLayout>
 
 

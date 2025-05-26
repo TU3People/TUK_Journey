@@ -27,7 +27,6 @@ import com.example.journey.data.activity.calc.DivisionCalculate
 import com.example.journey.data.activity.rest.RestActivity
 import com.example.journey.data.activity.share.ImageshareActivity
 import com.example.journey.data.remote.model.cafe.KakaoPlace
-import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -39,6 +38,8 @@ import com.naver.maps.map.MapFragment
 import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
+import android.content.Context
+import com.example.journey.databinding.NavigationHeaderBinding
 
 
 class MainActivity : AppCompatActivity() {
@@ -46,13 +47,18 @@ class MainActivity : AppCompatActivity() {
     lateinit var toggle: ActionBarDrawerToggle
     private var backPressedTime: Long = 0
     private lateinit var naverMap: NaverMap
-    private var requestLauncher : ActivityResultLauncher<Intent> = registerForActivityResult(ActivityResultContracts.StartActivityForResult()){
-        val nickname = it.data?.getStringExtra("name")
-        val email = it.data?.getStringExtra("email")
+    private lateinit var headerBinding: NavigationHeaderBinding
+    private var requestLauncher: ActivityResultLauncher<Intent> =
+        registerForActivityResult(ActivityResultContracts.StartActivityForResult()) {
+            val nickname = it.data?.getStringExtra("name") ?: return@registerForActivityResult
 
-        binding.nickname.text = nickname
-        binding.email.text = email
-    }
+            val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+            pref.edit().putString("nickname", nickname).apply()
+
+            headerBinding.realnickname.text = nickname
+        }
+
+
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private var currentLat: Double = 0.0
     private var currentLng: Double = 0.0
@@ -192,6 +198,20 @@ class MainActivity : AppCompatActivity() {
             return dp * Resources.getSystem().displayMetrics.density
         }
 
+        binding.mainDrawerView.setNavigationItemSelectedListener {
+            when (it.itemId) {
+                R.id.matzipm -> startActivity(Intent(this, RestActivity::class.java))
+                R.id.cafem -> startActivity(Intent(this, CafeActivity::class.java))
+                R.id.activitym -> Toast.makeText(this, "준비중입니다!", Toast.LENGTH_SHORT).show()
+                R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
+                R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
+                R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
+                R.id.timetablem -> startActivity(Intent(this, ScheduleActivity::class.java))
+            }
+            binding.drawer.closeDrawer(binding.mainDrawerView) // 네비게이션 닫기
+            true
+        }
+
         binding.handlewrapper.setOnClickListener {
             binding.root.post {
                 val screenHeight = binding.root.height
@@ -212,9 +232,11 @@ class MainActivity : AppCompatActivity() {
                     .withEndAction {
                         if(isExpanded) {
                             binding.topbackimage.visibility = View.VISIBLE
+                            binding.toptext.visibility = View.VISIBLE
                         }
                         else{
                             binding.topbackimage.visibility = View.GONE
+                            binding.toptext.visibility = View.GONE
                         }
                     }
                     .start()
@@ -263,13 +285,24 @@ class MainActivity : AppCompatActivity() {
             findViewById<FrameLayout>(R.id.search_fragment_container).visibility = View.VISIBLE
         }
 
+        val headerView = binding.mainDrawerView.getHeaderView(0)
+        headerBinding = NavigationHeaderBinding.bind(headerView)
 
 
 
-        binding.mset.setOnClickListener {
+        val pref = getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val rnick = pref.getString("nickname", null) ?: pref.getString("username", "") ?: ""
+        headerBinding.realnickname.text = rnick
+        headerBinding.nickname.text = pref.getString("username", null).toString()
+        headerBinding.email.text = pref.getString("useremail", null).toString()
+
+
+        headerBinding.mset.setOnClickListener {
             val intent = Intent(this, FixprofileActivity::class.java)
+            intent.putExtra("nickname", headerBinding.realnickname.text.toString() )
             requestLauncher.launch(intent)
         }
+
 
         binding.cafe.setOnClickListener {
             startActivity(Intent(this, CafeActivity::class.java))
@@ -301,15 +334,6 @@ class MainActivity : AppCompatActivity() {
             infoWindow.close() // 정보창도 같이 닫기 (선택)
         }
 
-
-    }
-
-    override fun onResume() {
-        super.onResume()
-        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
-
-        binding.nickname.text = pref.getString("username", null).toString()
-        binding.email.text = pref.getString("useremail", null).toString()
 
     }
 
