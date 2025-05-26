@@ -27,6 +27,8 @@ import com.example.journey.data.activity.calc.DivisionCalculate
 import com.example.journey.data.activity.rest.RestActivity
 import com.example.journey.data.activity.share.ImageshareActivity
 import com.example.journey.data.remote.model.cafe.KakaoPlace
+import com.example.journey.data.activity.schedule.ScheduleActivity
+import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -299,6 +301,15 @@ class MainActivity : AppCompatActivity() {
             infoWindow.close() // 정보창도 같이 닫기 (선택)
         }
 
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
+
+        binding.nickname.text = pref.getString("username", null).toString()
+        binding.email.text = pref.getString("useremail", null).toString()
 
     }
 

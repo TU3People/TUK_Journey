@@ -2,6 +2,7 @@ package com.example.journey.data.remote.network
 
 import com.example.journey.data.remote.api.AuthApiService
 import com.example.journey.data.remote.api.TimetableApiService
+import com.example.journey.data.remote.api.UserApiService
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -37,5 +38,9 @@ object RetrofitProvider {
 
     val timetableApi: TimetableApiService by lazy {
         retrofit.create(TimetableApiService::class.java)
+    }
+
+    val user: UserApiService by lazy {
+        retrofit.create(UserApiService::class.java)
     }
 }
