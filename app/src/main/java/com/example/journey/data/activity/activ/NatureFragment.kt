@@ -14,10 +14,11 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.journey.data.remote.model.cafe.KakaoPlace
 import com.example.journey.data.remote.network.RetrofitClient
 import com.example.journey.databinding.FragmentNatureBinding
-import com.example.journey.databinding.FragmentNcafeBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.delay
+
 
 
 class NatureFragment : Fragment() {
@@ -104,6 +105,7 @@ class NatureFragment : Fragment() {
                 val queries = listOf("공원", "자연명소")
 
                 for (query in queries) {
+                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,

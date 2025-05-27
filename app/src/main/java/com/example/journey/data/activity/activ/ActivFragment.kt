@@ -17,6 +17,7 @@ import com.example.journey.data.remote.network.RetrofitClient
 import com.example.journey.databinding.FragmentActivBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -104,6 +105,7 @@ class ActivFragment : Fragment() {
                 val queries = listOf("체험", "액티비티","레저","스포츠")
 
                 for (query in queries) {
+                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,

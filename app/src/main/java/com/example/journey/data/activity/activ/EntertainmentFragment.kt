@@ -17,6 +17,7 @@ import com.example.journey.databinding.FragmentEntertainmentBinding
 import com.example.journey.databinding.FragmentNcafeBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 
@@ -104,6 +105,7 @@ class EntertainmentFragment : Fragment() {
                 val queries = listOf("놀거리", "오락시설","테마파크","전시","PC방")
 
                 for (query in queries) {
+                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,
