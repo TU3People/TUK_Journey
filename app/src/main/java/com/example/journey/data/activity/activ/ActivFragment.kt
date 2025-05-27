@@ -9,7 +9,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.journey.data.remote.model.cafe.KakaoPlace
@@ -105,7 +104,6 @@ class ActivFragment : Fragment() {
                 val queries = listOf("체험", "액티비티","레저","스포츠")
 
                 for (query in queries) {
-                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,
