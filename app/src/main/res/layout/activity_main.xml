@@ -225,7 +225,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="24dp"
-                                android:text="바우처 공유"
+                                android:text="이미지 공유"
                                 android:layout_gravity="center"
                                 android:gravity="center"/>
                         </LinearLayout>
@@ -289,23 +289,13 @@
                         android:layout_weight="1"
                         android:gravity="center"
                         >
-                        <ImageButton
-                            android:id="@+id/timetable"
-                            android:layout_width="80dp"
-                            android:layout_height="80dp"
-                            android:padding="40dp"
-                            android:background="@drawable/timetable"
-                            android:clipToOutline="true"
-                            android:contentDescription="이미지 버튼"
-                            android:layout_gravity="center"
-
-                            />
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="24dp"
-                            android:text="시간표"
-                            android:layout_gravity="center"
-                            android:gravity="center"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:text="한국공학대학교"
+                            android:textSize="20dp"
+                            android:gravity="center"
+                            android:fontFamily="@font/jua"/>
                     </LinearLayout>
                 </LinearLayout>
 

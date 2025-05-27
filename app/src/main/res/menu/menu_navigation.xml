@@ -6,12 +6,10 @@
         android:icon="@drawable/coffee"/>
     <item android:id="@+id/activitym" android:title="액티비티"
         android:icon="@drawable/activ"/>
-    <item android:id="@+id/sharem" android:title="바우처 공유"
+    <item android:id="@+id/sharem" android:title="이미지 공유"
         android:icon="@drawable/share"/>
     <item android:id="@+id/calm" android:title="계산기"
         android:icon="@drawable/keys"/>
     <item android:id="@+id/spinm" android:title="돌림판"
         android:icon="@drawable/lottery"/>
-    <item android:id="@+id/timetablem" android:title="시간표"
-        android:icon="@drawable/timetable"/>
 </menu>

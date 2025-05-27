@@ -39,6 +39,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import android.content.Context
+import com.example.journey.data.activity.activ.ActivActivity
 import com.example.journey.databinding.NavigationHeaderBinding
 
 
@@ -202,11 +203,10 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.matzipm -> startActivity(Intent(this, RestActivity::class.java))
                 R.id.cafem -> startActivity(Intent(this, CafeActivity::class.java))
-                R.id.activitym -> Toast.makeText(this, "준비중입니다!", Toast.LENGTH_SHORT).show()
+                R.id.activitym -> startActivity(Intent(this, ActivActivity::class.java))
                 R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
                 R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
                 R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
-                R.id.timetablem -> startActivity(Intent(this, ScheduleActivity::class.java))
             }
             binding.drawer.closeDrawer(binding.mainDrawerView) // 네비게이션 닫기
             true
@@ -312,9 +312,11 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, RouletteActivity::class.java))
         }
 
-        binding.timetable.setOnClickListener {
-            startActivity(Intent(this, ScheduleActivity::class.java))
+        binding.activity.setOnClickListener {
+            startActivity(Intent(this, ActivActivity::class.java))
         }
+
+
 
         binding.matzip.setOnClickListener {
             startActivity(Intent(this, RestActivity::class.java))

@@ -1,6 +1,5 @@
 package com.example.journey.data.activity.Roulette
 
-
 import android.graphics.Color
 import android.os.Bundle
 import android.widget.TextView
@@ -13,10 +12,8 @@ import com.example.journey.R
 import com.example.journey.databinding.ActivityRouletteBinding
 import kotlin.random.Random
 
-
-
 class RouletteActivity : AppCompatActivity() {
-    lateinit var binding: ActivityRouletteBinding
+    private lateinit var binding: ActivityRouletteBinding
     private val itemList = mutableListOf<String>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -24,20 +21,22 @@ class RouletteActivity : AppCompatActivity() {
         enableEdgeToEdge()
         binding = ActivityRouletteBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { v, insets ->
             val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
             insets
         }
+
         setSupportActionBar(binding.toolbar)
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        title=""
+        title = ""
 
+        // 항목 추가
         binding.addItemBtn.setOnClickListener {
-            val item = binding.inputItem.text.toString().trim()
-            if (item.isNotEmpty()) {
-                itemList.add(item)
-                Toast.makeText(this, "추가됨: $item", Toast.LENGTH_SHORT).show()
+            val input = binding.inputItem.text.toString().trim()
+            if (input.isNotEmpty()) {
+                addItem(input)
                 binding.inputItem.text.clear()
             }
         }
@@ -54,31 +53,20 @@ class RouletteActivity : AppCompatActivity() {
             binding.rouletteView.setItems(finalList)
         }
 
-        // 돌리기
+        // 룰렛 돌리기
         binding.spinBtn.setOnClickListener {
             if (itemList.isEmpty()) {
                 Toast.makeText(this, "항목을 먼저 추가하세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
 
-            val currentItems = itemList
-            val randomIndex = Random.nextInt(currentItems.size)
-            binding.rouletteView.spinTo(randomIndex)
+            binding.rouletteView.spinAndReturnResult { index ->
+                val selected = itemList[index % itemList.size]
+                Toast.makeText(this, "당첨: $selected", Toast.LENGTH_SHORT).show()
+            }
 
-            // 결과는 회전 애니메이션 끝난 후 콜백으로 처리할 수도 있음
             Toast.makeText(this, "돌리는 중...", Toast.LENGTH_SHORT).show()
         }
-
-        binding.addItemBtn.setOnClickListener {
-            val input = binding.inputItem.text.toString().trim()
-            if (input.isNotEmpty()) {
-                addItem(input)
-                binding.inputItem.text.clear()
-            }
-        }
-
-
-
     }
 
     private fun distributeItems(original: List<String>, count: Int): List<String> {
@@ -94,7 +82,6 @@ class RouletteActivity : AppCompatActivity() {
             setBackgroundResource(android.R.color.darker_gray)
             setTextColor(Color.WHITE)
 
-            // 클릭 시 삭제
             setOnClickListener {
                 binding.itemContainer.removeView(this)
                 itemList.remove(item)
@@ -105,5 +92,4 @@ class RouletteActivity : AppCompatActivity() {
         binding.itemContainer.addView(textView)
         itemList.add(item)
     }
-
 }
