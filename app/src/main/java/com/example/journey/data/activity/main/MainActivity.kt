@@ -203,7 +203,7 @@ class MainActivity : AppCompatActivity() {
             when (it.itemId) {
                 R.id.matzipm -> startActivity(Intent(this, RestActivity::class.java))
                 R.id.cafem -> startActivity(Intent(this, CafeActivity::class.java))
-                R.id.activitym -> Toast.makeText(this, "준비중입니다!", Toast.LENGTH_SHORT).show()
+                R.id.activitym -> startActivity(Intent(this, ActivActivity::class.java))
                 R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
                 R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
                 R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
