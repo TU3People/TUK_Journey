@@ -207,7 +207,6 @@ class MainActivity : AppCompatActivity() {
                 R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
                 R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
                 R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
-                R.id.timetablem -> startActivity(Intent(this, ScheduleActivity::class.java))
             }
             binding.drawer.closeDrawer(binding.mainDrawerView) // 네비게이션 닫기
             true
@@ -317,9 +316,7 @@ class MainActivity : AppCompatActivity() {
             startActivity(Intent(this, ActivActivity::class.java))
         }
 
-        binding.timetable.setOnClickListener {
-            startActivity(Intent(this, ScheduleActivity::class.java))
-        }
+
 
         binding.matzip.setOnClickListener {
             startActivity(Intent(this, RestActivity::class.java))

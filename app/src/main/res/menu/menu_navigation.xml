@@ -12,6 +12,4 @@
         android:icon="@drawable/keys"/>
     <item android:id="@+id/spinm" android:title="돌림판"
         android:icon="@drawable/lottery"/>
-    <item android:id="@+id/timetablem" android:title="시간표"
-        android:icon="@drawable/timetable"/>
 </menu>
