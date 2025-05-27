@@ -37,7 +37,7 @@ class RouletteView @JvmOverloads constructor(
 
         val centerX = width / 2f
         val centerY = height / 2f
-        val radius = min(centerX, centerY) - 10f
+        val radius = min(centerX, centerY) - 60f
         var startAngle = rotationAngle
 
         for (i in items.indices) {
@@ -66,9 +66,9 @@ class RouletteView @JvmOverloads constructor(
         val path = Path()
         val pointerWidth = 40f
         val pointerHeight = 40f
-        path.moveTo(centerX, centerY - radius - 10f)
-        path.lineTo(centerX - pointerWidth / 2, centerY - radius - 10f - pointerHeight)
-        path.lineTo(centerX + pointerWidth / 2, centerY - radius - 10f - pointerHeight)
+        path.moveTo(centerX, centerY - radius + 10f)
+        path.lineTo(centerX - pointerWidth / 2, centerY - radius - pointerHeight + 10f)
+        path.lineTo(centerX + pointerWidth / 2, centerY - radius - pointerHeight + 10f)
         path.close()
 
         canvas.drawPath(path, pointerPaint)
