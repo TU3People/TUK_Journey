@@ -6,6 +6,7 @@ import android.graphics.*
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.DecelerateInterpolator
+import androidx.core.animation.doOnEnd
 import kotlin.math.cos
 import kotlin.math.min
 import kotlin.math.sin
@@ -93,5 +94,35 @@ class RouletteView @JvmOverloads constructor(
         }
         animator.start()
     }
+
+    fun spinAndReturnResult(duration: Long = 3000L, onResult: (Int) -> Unit) {
+        if (items.isEmpty()) return
+
+        val randomIndex = (items.indices).random()
+        val extraRotation = (0..360).random().toFloat()
+
+        val totalRotation = 360f * 5 + (items.size - randomIndex) * anglePerItem + extraRotation
+
+        val animator = ValueAnimator.ofFloat(rotationAngle, rotationAngle + totalRotation)
+        animator.duration = duration
+        animator.interpolator = DecelerateInterpolator()
+        animator.addUpdateListener {
+            rotationAngle = it.animatedValue as Float % 360
+            invalidate()
+        }
+
+        animator.doOnEnd {
+            // 화면 상단 포인터 기준으로 계산
+            val pointerAngle = (270f - rotationAngle + 360f) % 360f
+            val landedIndex = (pointerAngle / anglePerItem).toInt() % items.size
+
+            onResult(landedIndex)
+        }
+
+        animator.start()
+    }
+
+
+
 
 }

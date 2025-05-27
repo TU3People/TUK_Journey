@@ -60,7 +60,11 @@ class RouletteActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
-            binding.rouletteView.spinRandom()
+            binding.rouletteView.spinAndReturnResult { index ->
+                val selected = itemList[index % itemList.size]
+                Toast.makeText(this, "당첨: $selected", Toast.LENGTH_SHORT).show()
+            }
+
             Toast.makeText(this, "돌리는 중...", Toast.LENGTH_SHORT).show()
         }
     }
