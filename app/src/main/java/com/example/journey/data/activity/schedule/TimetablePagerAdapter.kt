@@ -10,8 +10,8 @@ import com.example.journey.ui.timetable.TimetableFragment
 
 class TimetablePagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     private val fragmentList = listOf(
-        TimetableFragment(),
         TimetableListFragment(),
+        TimetableFragment(),
         TimetableNewFragment()
     )
 

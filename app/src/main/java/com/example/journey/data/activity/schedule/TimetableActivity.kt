@@ -39,8 +39,8 @@ class TimetableActivity : AppCompatActivity() {
 
         TabLayoutMediator(binding.schTab, binding.viewPager) { tab, position ->
             tab.text = when (position) {
-                0 -> "시간표"
-                1 -> "시간표 리스트"
+                0 -> "시간표 리스트"
+                1 -> "시간표"
                 2 -> "새 시간표"
                 else -> "탭"
             }
