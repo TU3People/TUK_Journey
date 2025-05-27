@@ -13,9 +13,12 @@ data class KakaoSearchResponse(
 data class KakaoPlace(
     @SerializedName("place_name") val name: String,
     @SerializedName("road_address_name") val roadAddress: String,
-    val x: String, // 경도
-    val y: String, // 위도
+    @SerializedName("address_name") val addressName: String,
+    val x: String,
+    val y: String,
     val phone: String,
     @SerializedName("place_url") val url: String,
+    @SerializedName("category_group_name") val categoryGroupName: String,
+    val distance: String,
     val thumbnailUrl: String? = null
 ) : Parcelable

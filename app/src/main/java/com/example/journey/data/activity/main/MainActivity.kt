@@ -39,6 +39,7 @@ import com.naver.maps.map.NaverMap
 import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import android.content.Context
+import com.example.journey.data.activity.activ.ActivActivity
 import com.example.journey.databinding.NavigationHeaderBinding
 
 
@@ -310,6 +311,10 @@ class MainActivity : AppCompatActivity() {
 
         binding.spin.setOnClickListener {
             startActivity(Intent(this, RouletteActivity::class.java))
+        }
+
+        binding.activity.setOnClickListener {
+            startActivity(Intent(this, ActivActivity::class.java))
         }
 
         binding.timetable.setOnClickListener {
