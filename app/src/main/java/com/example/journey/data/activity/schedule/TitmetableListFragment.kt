@@ -1,5 +1,6 @@
 package com.example.journey.data.activity.schedule
 
+import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.journey.data.remote.Token
 import com.example.journey.data.remote.model.timetable.ScheduleDto
 import com.example.journey.data.remote.network.RetrofitProvider
 import com.example.journey.databinding.FragmentTimetableListBinding
@@ -40,9 +42,11 @@ class TimetableListFragment : Fragment() {
     }
 
     private fun fetchSchedules() {
+        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
+        val username = pref.getString("username", null)
         lifecycleScope.launch {
             runCatching {
-                RetrofitProvider.timetableApi.getSchedule(1)
+                RetrofitProvider.timetableApi.getAllSchedule(username)
             }.onSuccess { res ->
                 if (res.isSuccessful) {
                     items.clear()
