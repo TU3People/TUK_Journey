@@ -75,10 +75,15 @@ class RouletteView @JvmOverloads constructor(
 
     }
 
-    fun spinTo(index: Int, duration: Long = 3000L) {
+    fun spinRandom(duration: Long = 3000L) {
         if (items.isEmpty()) return
 
-        val targetAngle = 360f * 5 + (items.size - index) * anglePerItem
+        val randomIndex = (items.indices).random()
+        val extraRotation = (0..360).random() // 회전감 랜덤 오프셋
+
+        val targetAngle =
+            360f * 5 + (items.size - randomIndex) * anglePerItem + extraRotation
+
         val animator = ValueAnimator.ofFloat(rotationAngle, rotationAngle + targetAngle)
         animator.duration = duration
         animator.interpolator = DecelerateInterpolator()
@@ -88,4 +93,5 @@ class RouletteView @JvmOverloads constructor(
         }
         animator.start()
     }
+
 }
