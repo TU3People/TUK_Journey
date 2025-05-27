@@ -22,9 +22,12 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
+            android:name=".data.activity.schedule.TimetableActivity"
+            android:exported="false" />
+        <activity
             android:name=".data.activity.activ.ActivActivity"
             android:exported="false"
-            android:parentActivityName=".data.activity.main.MainActivity"/>
+            android:parentActivityName=".data.activity.main.MainActivity" />
 
         <provider
             android:name="androidx.core.content.FileProvider"
@@ -48,7 +51,7 @@
             android:exported="false"
             android:parentActivityName=".data.activity.main.MainActivity" />
         <activity
-            android:name=".data.activity.schedule.ScheduleActivity"
+            android:name=".data.activity.schedule.old.ScheduleActivity"
             android:exported="false"
             android:parentActivityName=".data.activity.main.MainActivity" />
         <activity

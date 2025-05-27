@@ -21,13 +21,11 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import com.example.journey.R
 import com.example.journey.data.activity.Roulette.RouletteActivity
-import com.example.journey.data.activity.schedule.ScheduleActivity
 import com.example.journey.data.activity.cafe.CafeActivity
 import com.example.journey.data.activity.calc.DivisionCalculate
 import com.example.journey.data.activity.rest.RestActivity
 import com.example.journey.data.activity.share.ImageshareActivity
 import com.example.journey.data.remote.model.cafe.KakaoPlace
-import com.example.journey.data.remote.Token
 import com.example.journey.databinding.ActivityMainBinding
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -40,6 +38,7 @@ import com.naver.maps.map.overlay.InfoWindow
 import com.naver.maps.map.overlay.Marker
 import android.content.Context
 import com.example.journey.data.activity.activ.ActivActivity
+import com.example.journey.data.activity.schedule.TimetableActivity
 import com.example.journey.databinding.NavigationHeaderBinding
 
 
@@ -207,7 +206,7 @@ class MainActivity : AppCompatActivity() {
                 R.id.sharem -> startActivity(Intent(this, ImageshareActivity::class.java))
                 R.id.calm -> startActivity(Intent(this, DivisionCalculate::class.java))
                 R.id.spinm -> startActivity(Intent(this, RouletteActivity::class.java))
-                R.id.timetablem -> startActivity(Intent(this, ScheduleActivity::class.java))
+                R.id.timetablem -> startActivity(Intent(this, TimetableActivity::class.java))
             }
             binding.drawer.closeDrawer(binding.mainDrawerView) // 네비게이션 닫기
             true
@@ -318,7 +317,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         binding.timetable.setOnClickListener {
-            startActivity(Intent(this, ScheduleActivity::class.java))
+            startActivity(Intent(this, TimetableActivity::class.java))
         }
 
         binding.matzip.setOnClickListener {
