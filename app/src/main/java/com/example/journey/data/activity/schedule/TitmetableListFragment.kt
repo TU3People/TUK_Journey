@@ -42,15 +42,16 @@ class TimetableListFragment : Fragment() {
     }
 
     private fun fetchSchedules() {
-        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
-        val username = pref.getString("username", null)
+//        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
+//        val username = pref.getString("username", null)
         lifecycleScope.launch {
             runCatching {
-                RetrofitProvider.timetableApi.getAllSchedule(username)
+                RetrofitProvider.timetableApi.getAllSchedule() //Token.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("jwt_token", null)!!
+
             }.onSuccess { res ->
                 if (res.isSuccessful) {
                     items.clear()
-//                    res.body()?.let(items::addAll)
+                    res.body()?.let(items::addAll)
                     adapter.notifyDataSetChanged()
                 }
             }.onFailure { err ->

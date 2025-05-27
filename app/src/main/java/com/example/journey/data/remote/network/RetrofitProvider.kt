@@ -4,6 +4,7 @@ import com.example.journey.data.remote.api.AuthApiService
 import com.example.journey.data.remote.api.TimetableApiService
 import com.example.journey.data.remote.api.UserApiService
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -15,9 +16,9 @@ object RetrofitProvider {
     private val client: OkHttpClient by lazy {
         OkHttpClient.Builder()
             .addInterceptor(TokenAuthInterceptor())     // JWT 헤더
-            //.addInterceptor(HttpLoggingInterceptor().apply {
-            //    level = HttpLoggingInterceptor.Level.BODY
-            //})
+            .addInterceptor(HttpLoggingInterceptor().apply {
+                level = HttpLoggingInterceptor.Level.BODY
+            })
             .build()
     }
 

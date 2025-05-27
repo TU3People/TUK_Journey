@@ -10,9 +10,8 @@ interface TimetableApiService {
 
     /* 현재 유저 올 조회 */
     @GET("/schedule")
-    suspend fun getAllSchedule(
-        @Path("id") id: String?
-    ): Response<List<ScheduleDto>>
+    suspend fun getAllSchedule()
+        : Response<List<ScheduleDto>>
 
     /** 특정 시간표 조회 */
     @GET("/schedule/{id}")
