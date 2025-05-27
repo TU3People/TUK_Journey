@@ -51,13 +51,19 @@ class TimetableListFragment : Fragment() {
             }.onSuccess { res ->
                 if (res.isSuccessful) {
                     items.clear()
-                    res.body()?.let(items::addAll)
+                    val schedules = res.body().orEmpty()      // ← 응답 리스트
+                    items.addAll(schedules)
                     adapter.notifyDataSetChanged()
 
-                    val pref = Token.appContext.getSharedPreferences("timetable", Context.MODE_PRIVATE)
-                    var sid = pref.getString("sid", null)
-
-                    res.body()?.let {  }
+                    // ───── ① 첫 schedule_id를 SharedPreferences 에 저장 ─────
+                    if (schedules.isNotEmpty()) {
+                        val firstId = schedules[0].scheduleId     // ← 필드명 맞게 수정
+                        Token.appContext
+                            .getSharedPreferences("timetable", Context.MODE_PRIVATE)
+                            .edit()
+                            .putString("sid", firstId.toString()) // 필요 시 putLong()
+                            .apply()
+                    }
                 }
             }.onFailure { err ->
                 err.printStackTrace() // TODO: 에러 메시지 처리

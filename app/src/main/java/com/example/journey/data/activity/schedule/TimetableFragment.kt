@@ -39,8 +39,8 @@ class TimetableFragment : Fragment() {
         // 2) 서버에서 첫 시간표(id 전달 없으면 1로 가정) -------------------------------
 //        val schedId = arguments?.getLong("schedule_id") ?: 1L
         val pref = Token.appContext
-            .getSharedPreferences("profile", Context.MODE_PRIVATE)
-        val schedId = pref.getString("id", null)?.toLong()!!
+            .getSharedPreferences("timetable", Context.MODE_PRIVATE)
+        val schedId = pref.getString("sid", null)?.toLong()!!
         lifecycleScope.launch {
             kotlin.runCatching {
                 RetrofitProvider.timetableApi.getSchedule(schedId)   // suspend
