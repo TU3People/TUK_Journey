@@ -48,7 +48,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="항목 추가"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#FFB7B7"/>
         </LinearLayout>
 
         <LinearLayout
@@ -72,7 +73,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
                 android:text="룰렛 생성"
-                android:layout_marginTop="8dp"/>
+                android:layout_marginTop="8dp"
+                android:backgroundTint="#FFB7B7"/>
         </LinearLayout>
     </LinearLayout>
 
@@ -111,6 +113,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="돌리기"
-        android:layout_margin="10dp"/>
+        android:layout_margin="10dp"
+        android:backgroundTint="#FFB7B7"/>
 </LinearLayout>
 
