@@ -6,6 +6,7 @@ import androidx.viewpager2.adapter.FragmentStateAdapter
 import com.example.journey.data.activity.cafe.ActivFragment
 import com.example.journey.data.activity.cafe.EntertainmentFragment
 import com.example.journey.data.activity.cafe.NatureFragment
+import com.example.journey.ui.timetable.TimetableFragment
 
 class TimetablePagerAdapter(fragmentActivity: FragmentActivity) : FragmentStateAdapter(fragmentActivity) {
     private val fragmentList = listOf(

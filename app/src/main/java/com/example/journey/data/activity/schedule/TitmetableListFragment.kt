@@ -39,11 +39,11 @@ class TimetableListFragment : Fragment() {
         }
 
         fetchSchedules()
+
     }
 
     private fun fetchSchedules() {
-//        val pref = Token.appContext.getSharedPreferences("profile", Context.MODE_PRIVATE)
-//        val username = pref.getString("username", null)
+
         lifecycleScope.launch {
             runCatching {
                 RetrofitProvider.timetableApi.getAllSchedule() //Token.appContext.getSharedPreferences("auth", Context.MODE_PRIVATE).getString("jwt_token", null)!!
@@ -53,6 +53,11 @@ class TimetableListFragment : Fragment() {
                     items.clear()
                     res.body()?.let(items::addAll)
                     adapter.notifyDataSetChanged()
+
+                    val pref = Token.appContext.getSharedPreferences("timetable", Context.MODE_PRIVATE)
+                    var sid = pref.getString("sid", null)
+
+                    res.body()?.let {  }
                 }
             }.onFailure { err ->
                 err.printStackTrace() // TODO: 에러 메시지 처리
