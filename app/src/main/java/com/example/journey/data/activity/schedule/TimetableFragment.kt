@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.journey.data.activity.schedule.Slot          // 화면용 모델:contentReference[oaicite:0]{index=0}
 import com.example.journey.data.remote.Token
+import com.example.journey.data.remote.model.timetable.ScheduleDto
 import com.example.journey.data.remote.model.timetable.SlotDto  // 네트워크 DTO:contentReference[oaicite:1]{index=1}
 import com.example.journey.data.remote.network.RetrofitProvider // Retrofit 싱글턴:contentReference[oaicite:2]{index=2}
 import com.example.journey.databinding.FragmentTimetableBinding
@@ -30,6 +31,7 @@ class TimetableFragment : Fragment() {
     ) = FragmentTimetableBinding.inflate(i, c, false).also { _vb = it }.root
 
     override fun onViewCreated(v: View, s: Bundle?) {
+
         // 1) RecyclerView 세팅 ------------------------------------------------------
         vb.rvSlot.apply {
             layoutManager = GridLayoutManager(requireContext(), 7)
@@ -70,7 +72,9 @@ class TimetableFragment : Fragment() {
     private fun String.toMin(): Int =
         split(":").let { (h, m) -> h.toInt() * 60 + m.toInt() }
 
+
     /* ─────────────────────── Adapter & DiffUtil ────────────────────── */
+
     private inner class SlotAdapter :
         ListAdapter<Slot, SlotAdapter.VH>(Diff) {
 
