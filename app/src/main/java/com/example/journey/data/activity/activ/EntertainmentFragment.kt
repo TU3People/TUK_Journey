@@ -105,7 +105,6 @@ class EntertainmentFragment : Fragment() {
                 val queries = listOf("놀거리", "오락시설","테마파크","전시","PC방")
 
                 for (query in queries) {
-                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,

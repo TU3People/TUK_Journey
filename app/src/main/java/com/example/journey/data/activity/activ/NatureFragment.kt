@@ -105,7 +105,6 @@ class NatureFragment : Fragment() {
                 val queries = listOf("공원", "자연명소")
 
                 for (query in queries) {
-                    delay(500)
                     val response = RetrofitClient.kakaoApi.searchKeyword(
                         query = query,
                         longitude = lng,
